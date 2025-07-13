@@ -14,6 +14,7 @@ interface State {
   loading: boolean;
   error: string | null;
   data: Item[];
+  throwError: boolean;
 }
 
 export class ResultsField extends Component<Props, State> {
@@ -21,6 +22,7 @@ export class ResultsField extends Component<Props, State> {
     loading: false,
     error: null,
     data: [],
+    throwError: false,
   };
 
   async componentDidMount() {
@@ -61,12 +63,14 @@ export class ResultsField extends Component<Props, State> {
   }
 
   throwError = () => {
-    throw new Error('error');
+    this.setState({ throwError: true });
   };
 
   render() {
     const { loading, error, data } = this.state;
-
+    if (this.state.throwError) {
+      throw new Error('Render error');
+    }
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
 

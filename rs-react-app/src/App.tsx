@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { SearchBar } from './components/SearchBar.tsx';
 import { ResultsField } from './components/ResultsField.tsx';
+import { ErrorBoundary } from './components/ErrorBoundary.tsx';
 
 interface State {
   search: string;
@@ -24,10 +25,12 @@ export default class App extends Component<object, State> {
     return (
       <div className="container">
         <SearchBar onSearch={this.handleSearch} />
-        <ResultsField
-          search={this.state.search}
-          triggerSearch={this.state.triggerSearch}
-        />
+        <ErrorBoundary>
+          <ResultsField
+            search={this.state.search}
+            triggerSearch={this.state.triggerSearch}
+          />
+        </ErrorBoundary>
       </div>
     );
   }
