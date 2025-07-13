@@ -1,9 +1,13 @@
 import { type ChangeEvent, Component } from 'react';
 
+interface Props {
+  onSearch: (query: string) => void;
+}
+
 interface State {
   input: string;
 }
-export class SearchBar extends Component<any, State> {
+export class SearchBar extends Component<Props, State> {
   state: State = {
     input: '',
   };
@@ -13,6 +17,9 @@ export class SearchBar extends Component<any, State> {
       this.setState({ input: saveSearch });
     }
   }
+  componentDidMount() {
+    this.getHistorySearch();
+  }
 
   handleClick() {
     const clearSearch = this.state.input.trim();
@@ -20,7 +27,7 @@ export class SearchBar extends Component<any, State> {
       localStorage.setItem('search', clearSearch);
     }
     this.props.onSearch(clearSearch);
-    console.log('sss');
+    console.log(this.state.input);
   }
   handleChange(e: ChangeEvent<HTMLInputElement>) {
     this.setState({ input: e.target.value });
@@ -33,7 +40,7 @@ export class SearchBar extends Component<any, State> {
           value={this.state.input}
           onChange={this.handleChange.bind(this)}
           className="SearchBar__input"
-          placeholder="Enter search.."
+          placeholder="Enter name character.."
         />
         <button
           onClick={this.handleClick.bind(this)}
