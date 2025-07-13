@@ -35,16 +35,16 @@ export class SearchBar extends Component<Props, State> {
 
   render() {
     return (
-      <div className="SearchBar">
+      <div className="search-bar">
         <input
           value={this.state.input}
           onChange={this.handleChange.bind(this)}
-          className="SearchBar__input"
+          className="search-bar__input"
           placeholder="Enter name character.."
         />
         <button
           onClick={this.handleClick.bind(this)}
-          className="SearchBar__button"
+          className="search-bar__button"
         >
           Search
         </button>

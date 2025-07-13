@@ -22,7 +22,7 @@ export default class App extends Component<object, State> {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <SearchBar onSearch={this.handleSearch} />
         <ResultsField
           search={this.state.search}
