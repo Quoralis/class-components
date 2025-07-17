@@ -11,6 +11,7 @@
     "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
+    "allowSyntheticDefaultImports": true,
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
@@ -21,8 +22,8 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "types": ["vitest", "@testing-library/jest-dom"]
   },
-  "types": ["vitest"],
   "include": ["src"]
 }
