@@ -47,6 +47,7 @@ export class ResultsField extends Component<Props, State> {
 
       const response = await fetch(url);
       const result = await response.json();
+      console.log(result);
       const filtered = search
         ? result.characters.filter((char: { name: string }) =>
             char.name.toLowerCase().includes(search.toLowerCase())
@@ -75,7 +76,7 @@ export class ResultsField extends Component<Props, State> {
     if (error) return <div>{error}</div>;
 
     return (
-      <div className="container__results">
+      <div data-testid="results" className="container__results">
         {data.length === 0 ? (
           <p>No results found.</p>
         ) : (
