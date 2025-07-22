@@ -1,37 +1,30 @@
-import { Component } from 'react';
-import { SearchBar } from './components/SearchBar.tsx';
-import { ResultsField } from './components/ResultsField.tsx';
+import { useEffect, useState } from 'react';
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
+import SearchBarFn from './components/SearchBarFn.tsx';
+import ResultsFieldFn from './components/ResultsFieldFn.tsx';
 
-interface State {
-  search: string;
-  triggerSearch: boolean;
-}
+function App() {
+  const [search, setSearch] = useState('');
+  const [triggerSearch, setTriggerSearch] = useState(false);
+  useEffect(() => {
+    const saveSearch = localStorage.getItem('search');
+    if (saveSearch) {
+      setSearch(saveSearch);
+    }
+  }, []);
 
-export default class App extends Component<object, State> {
-  state: State = {
-    search: '',
-    triggerSearch: false,
+  const handleSearch = (search: string) => {
+    setSearch(search);
+    setTriggerSearch(!triggerSearch);
   };
 
-  handleSearch = (search: string) => {
-    this.setState((prevState) => ({
-      search,
-      triggerSearch: !prevState.triggerSearch,
-    }));
-  };
-
-  render() {
-    return (
-      <div className="container">
-        <SearchBar onSearch={this.handleSearch} />
-        <ErrorBoundary>
-          <ResultsField
-            search={this.state.search}
-            triggerSearch={this.state.triggerSearch}
-          />
-        </ErrorBoundary>
-      </div>
-    );
-  }
+  return (
+    <div className="container">
+      <SearchBarFn search={search} onSearch={handleSearch} />
+      <ErrorBoundary>
+        <ResultsFieldFn search={search} triggerSearch={triggerSearch} />
+      </ErrorBoundary>
+    </div>
+  );
 }
+export default App;
