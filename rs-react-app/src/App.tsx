@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { ErrorBoundary } from './components/ErrorBoundary.tsx';
-import SearchBarFn from './components/SearchBarFn.tsx';
-import ResultsFieldFn from './components/ResultsFieldFn.tsx';
+import { ErrorBoundary } from './components/pages/SearchResults/ErrorBoundary.tsx';
+import SearchBarFn from './components/pages/SearchResults/SearchBarFn.tsx';
+import ResultsFieldFn from './components/pages/SearchResults/ResultsFieldFn.tsx';
 
 function App() {
   const [search, setSearch] = useState('');

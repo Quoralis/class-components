@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
 import { ResultsField } from '../components/ResultsField.tsx';
 import userEvent from '@testing-library/user-event';
-import { ErrorBoundary } from '../components/ErrorBoundary.tsx';
+import { ErrorBoundary } from '../components/pages/SearchResults/ErrorBoundary.tsx';
 
 describe('Test ResultsField', () => {
   const user = userEvent.setup();
