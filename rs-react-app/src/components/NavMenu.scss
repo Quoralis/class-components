@@ -4,10 +4,13 @@
   justify-content: center;
 
   gap: 2em;
+  a{
+    color: white;
+  }
   .pending{
     color: red;
   }
   .active{
-    color: blue;
+    color: #f34141;
   }
 }

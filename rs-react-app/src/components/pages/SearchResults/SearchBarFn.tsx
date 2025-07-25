@@ -1,4 +1,5 @@
 import { type ChangeEvent } from 'react';
+import styles from './SearchBar.module.scss';
 
 interface Props {
   search: string;
@@ -19,7 +20,7 @@ function SearchBarFn(props: Props) {
   };
 
   return (
-    <div key="searchBar" className="search-bar">
+    <div key="searchBar" className={styles['search-bar']}>
       <input
         type="text"
         onChange={handleChange}
