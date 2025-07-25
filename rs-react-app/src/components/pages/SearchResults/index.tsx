@@ -16,6 +16,7 @@ function SearchPage() {
   const handleSearch = (search: string) => {
     setSearch(search);
     setTriggerSearch(!triggerSearch);
+    localStorage.setItem('search', search);
   };
   return (
     <div className="container">

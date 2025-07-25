@@ -1,13 +1,20 @@
 import { useCallback, useEffect, useState } from 'react';
+import CardCharacter from './CardsCharacter.tsx';
 
 interface Props {
   search: string;
   triggerSearch: boolean;
 }
 
-interface Item {
+export interface Item {
   uid: string;
   name: string;
+  birthDate?: string;
+  deathDate?: string;
+  gender?: string;
+  species?: string;
+  homeWorld?: string;
+  hologram?: boolean;
 }
 
 function ResultsField(props: Props) {
@@ -60,13 +67,7 @@ function ResultsField(props: Props) {
       {data.length === 0 ? (
         <p>No results found.</p>
       ) : (
-        <ul>
-          {data.map((item) => (
-            <li key={item.uid}>
-              <h3>{item.name}</h3>
-            </li>
-          ))}
-        </ul>
+        <CardCharacter items={data} />
       )}
       <button onClick={throwErr}>Throw Error</button>
     </div>
