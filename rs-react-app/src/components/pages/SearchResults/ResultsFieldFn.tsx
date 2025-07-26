@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import CardCharacter from './CardsCharacter.tsx';
+import Pagination from './Pagination.tsx';
 
 interface Props {
   search: string;
@@ -32,7 +33,11 @@ function ResultsField(props: Props) {
   const [data, setData] = useState<Item[]>([]);
   const [throwError, setThrowError] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
-  const [totalPage, setTotalPage] = useState(0);
+  const [totalPages, setTotalPage] = useState(0);
+
+  function onPageChange(currentPage: number) {
+    setCurrentPage(currentPage);
+  }
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -44,9 +49,8 @@ function ResultsField(props: Props) {
 
       const response = await fetch(url);
       const result: CharacterSearchResponse = await response.json();
-      setCurrentPage(result.page.pageNumber);
       setTotalPage(result.page.totalPages);
-      console.log(totalPage); // заглушка для линтера
+      console.log(totalPages); // заглушка для линтера
       const filtered = search
         ? result.characters.filter((char: { name: string }) =>
             char.name.toLowerCase().includes(search.toLowerCase())
@@ -60,11 +64,11 @@ function ResultsField(props: Props) {
     } finally {
       setLoading(false);
     }
-  }, [props.search]);
+  }, [props.search, currentPage]);
 
   useEffect(() => {
     fetchData();
-  }, [fetchData, props.triggerSearch]);
+  }, [fetchData, props.triggerSearch, currentPage]);
 
   const throwErr = () => {
     setThrowError(true);
@@ -83,6 +87,11 @@ function ResultsField(props: Props) {
       ) : (
         <CardCharacter items={data} />
       )}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={onPageChange}
+      />
       <button onClick={throwErr}>Throw Error</button>
     </div>
   );
