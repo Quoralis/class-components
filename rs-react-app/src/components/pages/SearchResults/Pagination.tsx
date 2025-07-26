@@ -9,13 +9,21 @@ interface PaginationProps {
 function Pagination(props: PaginationProps) {
   return (
     <div key={'pagination'} className={styles['pagination']}>
-      <button onClick={() => props.onPageChange(props.currentPage - 1)}>
+      <button
+        className={props.currentPage === 0 ? styles.disable : ''}
+        onClick={() => props.onPageChange(props.currentPage - 1)}
+      >
         « Prev
       </button>
       <span>
         Page {props.currentPage + 1} of {props.totalPages}
       </span>
-      <button onClick={() => props.onPageChange(props.currentPage + 1)}>
+      <button
+        className={
+          props.currentPage === props.totalPages - 1 ? styles.disable : ''
+        }
+        onClick={() => props.onPageChange(props.currentPage + 1)}
+      >
         Next »
       </button>
     </div>
