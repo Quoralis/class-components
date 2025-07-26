@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import CardCharacter from './CardsCharacter.tsx';
 import Pagination from './Pagination.tsx';
+import styles from './ResultsFieldFn.module.scss';
 
 interface Props {
   search: string;
@@ -81,7 +82,7 @@ function ResultsField(props: Props) {
   if (error) return <div>{error}</div>;
 
   return (
-    <div data-testid="results" className="container__results">
+    <div data-testid="results" className={styles['container__results']}>
       {data.length === 0 ? (
         <p>No results found.</p>
       ) : (

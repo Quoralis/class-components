@@ -1,3 +1,5 @@
+import styles from './Pagination.module.scss';
+
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
@@ -6,7 +8,7 @@ interface PaginationProps {
 
 function Pagination(props: PaginationProps) {
   return (
-    <div>
+    <div key={'pagination'} className={styles['pagination']}>
       <button onClick={() => props.onPageChange(props.currentPage - 1)}>
         « Prev
       </button>
