@@ -16,12 +16,23 @@ export interface Item {
   homeWorld?: string;
   hologram?: boolean;
 }
+interface CharacterSearchResponse {
+  characters: Item[];
+  page: {
+    pageNumber: number;
+    pageSize: number;
+    totalElements: number;
+    totalPages: number;
+  };
+}
 
 function ResultsField(props: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<Item[]>([]);
   const [throwError, setThrowError] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -29,10 +40,13 @@ function ResultsField(props: Props) {
 
     try {
       const search = props.search;
-      const url = `https://stapi.co/api/v1/rest/character/search`;
+      const url = `https://stapi.co/api/v1/rest/character/search?pageNumber=${currentPage}&pageSize=16`;
 
       const response = await fetch(url);
-      const result = await response.json();
+      const result: CharacterSearchResponse = await response.json();
+      setCurrentPage(result.page.pageNumber);
+      setTotalPage(result.page.totalPages);
+      console.log(totalPage); // заглушка для линтера
       const filtered = search
         ? result.characters.filter((char: { name: string }) =>
             char.name.toLowerCase().includes(search.toLowerCase())
