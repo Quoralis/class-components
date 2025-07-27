@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CardCharacter from './CardsCharacter.tsx';
 import Pagination from './Pagination.tsx';
 import styles from './ResultsFieldFn.module.scss';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
   search: string;
@@ -35,41 +36,43 @@ function ResultsField(props: Props) {
   const [throwError, setThrowError] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPage] = useState(0);
-
+  const [searchParams, setSearchParams] = useSearchParams();
   function onPageChange(currentPage: number) {
     setCurrentPage(currentPage);
+    setSearchParams({ page: String(currentPage + 1) });
   }
-
-  const fetchData = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const search = props.search;
-      const url = `https://stapi.co/api/v1/rest/character/search?pageNumber=${currentPage}&pageSize=16`;
-
-      const response = await fetch(url);
-      const result: CharacterSearchResponse = await response.json();
-      setTotalPage(result.page.totalPages);
-      console.log(totalPages); // заглушка для линтера
-      const filtered = search
-        ? result.characters.filter((char: { name: string }) =>
-            char.name.toLowerCase().includes(search.toLowerCase())
-          )
-        : result.characters;
-
-      setData(filtered);
-    } catch (err) {
-      console.error(err);
-      setError('Something went wrong');
-    } finally {
-      setLoading(false);
-    }
-  }, [props.search, currentPage]);
-
   useEffect(() => {
+    const pageFromUrl = parseInt(searchParams.get('page') || '1', 10);
+    const validPage =
+      !isNaN(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl - 1 : 0;
+
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const url = `https://stapi.co/api/v1/rest/character/search?pageNumber=${validPage}&pageSize=16`;
+        const response = await fetch(url);
+        const result: CharacterSearchResponse = await response.json();
+
+        setTotalPage(result.page.totalPages);
+        setCurrentPage(validPage); // ← обновляем текущую страницу
+        const filtered = props.search
+          ? result.characters.filter((char) =>
+              char.name.toLowerCase().includes(props.search.toLowerCase())
+            )
+          : result.characters;
+
+        setData(filtered);
+      } catch (err) {
+        console.error(err);
+        setError('Something went wrong');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchData();
-  }, [fetchData, props.triggerSearch, currentPage]);
+  }, [searchParams, props.search, props.triggerSearch]);
 
   const throwErr = () => {
     setThrowError(true);
