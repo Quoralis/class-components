@@ -1,5 +1,6 @@
 import { useParams, useSearchParams, Link } from 'react-router-dom';
 import useCharacterById from '../../../hooks/useDataCharacterByUid.ts';
+import styles from './ItemDetails.module.scss';
 
 export default function ItemDetails() {
   const { id } = useParams();
@@ -23,7 +24,7 @@ export default function ItemDetails() {
     );
 
   return (
-    <div>
+    <div className={styles['container_details']}>
       <h2>{character.name}</h2>
       <p>
         <strong>UID:</strong> {character.uid || 'unknown'}
