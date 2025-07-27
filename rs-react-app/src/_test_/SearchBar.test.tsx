@@ -1,17 +1,17 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { SearchBar } from '../components/SearchBar.tsx';
 import userEvent from '@testing-library/user-event';
+import SearchBarFn from '../components/pages/SearchResults/SearchBarFn.tsx';
 
 describe('Test SearchBar', () => {
-  const inputValue = '';
+  const inputValue = 'Qwerty';
   let input: HTMLInputElement;
   let buttonSearch: HTMLButtonElement;
   const user = userEvent.setup();
   const onSearchMok = vi.fn();
 
   beforeEach(() => {
-    render(<SearchBar onSearch={onSearchMok} />);
+    render(<SearchBarFn onSearch={onSearchMok} search="Qwerty" />);
     input = screen.getByRole('textbox');
     buttonSearch = screen.getByRole('button', { name: 'Search' });
   });
