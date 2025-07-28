@@ -1,7 +1,2 @@
 #!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-export PATH="./rs-react-app/node_modules/.bin:$PATH"
-
-cd rs-react-app
 npx vitest run --coverage
