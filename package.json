@@ -8,10 +8,19 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "husky install",
+    "prepare": "npx simple-git-hooks",
     "format:fix": "prettier --write .",
     "test": "vitest",
     "coverage": "vitest run --coverage"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged && npm test"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "react": "^19.1.0",
@@ -43,15 +52,10 @@
     "lint-staged": "^16.1.2",
     "prettier": "3.6.2",
     "sass-embedded": "^1.89.2",
+    "simple-git-hooks": "^2.13.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.35.1",
     "vite": "^7.0.4",
     "vitest": "^3.2.4"
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ]
   }
 }
