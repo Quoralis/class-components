@@ -10,7 +10,7 @@ describe('ReactApp', () => {
         <App />
       </BrowserRouter>
     );
-    const input = screen.getByRole('textbox');
+    const input = screen.getByRole('searchbox');
     expect(input).toBeInTheDocument();
   });
 });

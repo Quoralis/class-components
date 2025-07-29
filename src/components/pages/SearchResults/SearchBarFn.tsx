@@ -22,7 +22,7 @@ function SearchBarFn(props: Props) {
   return (
     <div key="searchBar" className={styles['search-bar']}>
       <input
-        type="text"
+        type="search"
         onChange={handleChange}
         value={props.search}
         className="search-bar__input"

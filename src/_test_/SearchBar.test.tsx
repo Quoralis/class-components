@@ -13,7 +13,7 @@ describe('Test SearchBar', () => {
 
   beforeEach(() => {
     render(<SearchBarFn onSearch={onSearchMok} search="Qwerty" />);
-    input = screen.getByRole('textbox');
+    input = screen.getByRole('searchbox');
     buttonSearch = screen.getByRole('button', { name: 'Search' });
   });
 
