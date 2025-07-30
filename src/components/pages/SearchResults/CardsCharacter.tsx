@@ -20,6 +20,7 @@ export default function CardCharacter({ items }: Props) {
           key={item.uid}
           className={`${styles.card} ${actualTheme === 'dark' ? styles.cardDark : ''}`}
         >
+          <input type="checkbox" />
           <Link
             to={`/details/${item.uid}${query ? `?${query}` : ''}`}
             className={styles['card-link']}
