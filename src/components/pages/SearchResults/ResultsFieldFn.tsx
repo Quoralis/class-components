@@ -4,6 +4,8 @@ import Pagination from './Pagination';
 import styles from './ResultsFieldFn.module.scss';
 import { useSearchParams } from 'react-router-dom';
 import useCharacterSearch from '../../../hooks/useDataCharacters';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../../store/store.ts';
 
 interface Props {
   search: string;
@@ -22,6 +24,7 @@ export interface Item {
 }
 
 function ResultsField(props: Props) {
+  const actualTheme = useSelector((state: RootState) => state.theme.theme);
   const [throwError, setThrowError] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -60,7 +63,12 @@ function ResultsField(props: Props) {
         totalPages={totalPages}
         onPageChange={onPageChange}
       />
-      <button onClick={throwErr}>Throw Error</button>
+      <button
+        className={actualTheme === 'dark' ? 'buttonDark' : ''}
+        onClick={throwErr}
+      >
+        Throw Error
+      </button>
     </div>
   );
 }

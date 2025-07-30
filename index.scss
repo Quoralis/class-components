@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Segoe UI", sans-serif;
+  font-size: 1em;
   color: #333;
   background-image: url('./src/assets/StarTrek_bck.jpeg');
   background-repeat: no-repeat;
@@ -26,14 +27,24 @@ body {
 }
 
 button {
-  padding: 0.4em 1em;
-  background-color: rgba(158, 207, 243, 0.78);
-  color: rgba(41, 41, 60, 0.65);
+  font-size: 0.9em;
+  padding: 0.3em 1.5em;
+  background-color: #0077cc;
+  color: white;
+  font-weight: bold;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #005fa3;
+  }
+}
+
+.buttonDark {
+  background-color: #d7e3ed;
+  color: #005fa3;
 }
 
 

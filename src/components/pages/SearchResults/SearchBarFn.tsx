@@ -1,6 +1,8 @@
 import { type ChangeEvent } from 'react';
 import styles from './SearchBar.module.scss';
 import ThemeSwitcher from './ThemeSwither';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../../store/store.ts';
 
 interface Props {
   search: string;
@@ -8,6 +10,8 @@ interface Props {
 }
 
 function SearchBarFn(props: Props) {
+  const actualTheme = useSelector((state: RootState) => state.theme.theme);
+
   const handleClick = () => {
     const clearSearch = props.search.trim();
     if (clearSearch) {
@@ -26,14 +30,18 @@ function SearchBarFn(props: Props) {
         type="search"
         onChange={handleChange}
         value={props.search}
-        className="search-bar__input"
+        className={`search-bar__input ${actualTheme === 'dark' ? 'search-bar__inputDark' : ''}`}
         placeholder="Enter name character.."
       />
-      <button className="search-bar__button" onClick={handleClick}>
+      <button
+        className={`styles${['search-bar__button']} ${actualTheme === 'dark' ? 'buttonDark' : ''}`}
+        onClick={handleClick}
+      >
         Search
       </button>
       <ThemeSwitcher />
     </div>
   );
 }
+
 export default SearchBarFn;
