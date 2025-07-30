@@ -36,6 +36,7 @@ export default function CardCharacter({ items }: Props) {
               handelCheckBox(item.uid);
             }}
             type="checkbox"
+            checked={checkBox.includes(item.uid)}
           />
           <Link
             to={`/details/${item.uid}${query ? `?${query}` : ''}`}

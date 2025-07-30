@@ -2,6 +2,7 @@ import SearchBarFn from './SearchBarFn.tsx';
 import { useEffect, useState } from 'react';
 import ResultsFieldFn from './ResultsFieldFn.tsx';
 import { ErrorBoundary } from './ErrorBoundary.tsx';
+import SelectedLayout from './SelectedLayout.tsx';
 
 function SearchPage() {
   const [search, setSearch] = useState('');
@@ -24,6 +25,7 @@ function SearchPage() {
       <ErrorBoundary>
         <ResultsFieldFn search={search} triggerSearch={triggerSearch} />
       </ErrorBoundary>
+      <SelectedLayout />
     </div>
   );
 }

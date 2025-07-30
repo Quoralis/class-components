@@ -21,7 +21,10 @@ const selectSlice = createSlice({
       );
       console.log(state.idCards);
     },
+    unSelectCards(state) {
+      state.idCards = [];
+    },
   },
 });
 export default selectSlice;
-export const { addCards, removeCards } = selectSlice.actions;
+export const { addCards, removeCards, unSelectCards } = selectSlice.actions;
