@@ -1,8 +1,9 @@
 import type { Item } from './ResultsFieldFn';
 import styles from './CardCharacter.module.scss';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../../store/store.ts';
+import { addCards, removeCards } from '../../../store/selectSlice.ts';
 
 interface Props {
   items: Item[];
@@ -12,6 +13,16 @@ export default function CardCharacter({ items }: Props) {
   const [searchParams] = useSearchParams();
   const query = searchParams.toString();
   const actualTheme = useSelector((state: RootState) => state.theme.theme);
+  const checkBox = useSelector((state: RootState) => state.selector.idCards);
+  const dispatch = useDispatch();
+
+  const handelCheckBox = (id: string) => {
+    if (!checkBox.includes(id)) {
+      dispatch(addCards(id));
+    } else {
+      dispatch(removeCards(id));
+    }
+  };
 
   return (
     <ul className={styles['card-list']}>
@@ -20,7 +31,12 @@ export default function CardCharacter({ items }: Props) {
           key={item.uid}
           className={`${styles.card} ${actualTheme === 'dark' ? styles.cardDark : ''}`}
         >
-          <input type="checkbox" />
+          <input
+            onChange={() => {
+              handelCheckBox(item.uid);
+            }}
+            type="checkbox"
+          />
           <Link
             to={`/details/${item.uid}${query ? `?${query}` : ''}`}
             className={styles['card-link']}
