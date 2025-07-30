@@ -1,9 +1,11 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ErrorBoundary } from '../components/pages/SearchResults/ErrorBoundary.tsx';
-import ResultsFieldFn from '../components/pages/SearchResults/ResultsFieldFn.tsx';
+import { ErrorBoundary } from '../components/pages/SearchResults/ErrorBoundary';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import ResultsFieldFn from '../components/pages/SearchResults/ResultsFieldFn.tsx';
+import store from '../store/store.ts';
 
 describe('Test ResultsField', () => {
   const user = userEvent.setup();
@@ -21,11 +23,13 @@ describe('Test ResultsField', () => {
       }),
     });
     render(
-      <BrowserRouter>
-        <ErrorBoundary>
-          <ResultsFieldFn search="" triggerSearch={false} />
-        </ErrorBoundary>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <ErrorBoundary>
+            <ResultsFieldFn search="" triggerSearch={false} />
+          </ErrorBoundary>
+        </BrowserRouter>
+      </Provider>
     );
   });
 

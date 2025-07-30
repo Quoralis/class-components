@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import CardCharacter from './CardsCharacter.tsx';
-import Pagination from './Pagination.tsx';
+import CardCharacter from './CardsCharacter';
+import Pagination from './Pagination';
 import styles from './ResultsFieldFn.module.scss';
 import { useSearchParams } from 'react-router-dom';
-import useCharacterSearch from '../../../hooks/useDataCharacters.ts';
+import useCharacterSearch from '../../../hooks/useDataCharacters';
 
 interface Props {
   search: string;

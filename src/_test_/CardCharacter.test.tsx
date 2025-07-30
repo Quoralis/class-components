@@ -1,7 +1,9 @@
 import { describe, test, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import CardCharacter from '../components/pages/SearchResults/CardsCharacter.tsx';
+import CardCharacter from '../components/pages/SearchResults/CardsCharacter';
+import { Provider } from 'react-redux';
+import store from '../store/store';
 
 const mockItems = [
   {
@@ -21,9 +23,11 @@ const mockItems = [
 describe('CardCharacter', () => {
   test('renders character details', () => {
     render(
-      <MemoryRouter>
-        <CardCharacter items={mockItems} />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <CardCharacter items={mockItems} />
+        </MemoryRouter>
+      </Provider>
     );
 
     expect(screen.getByText('Spock')).toBeInTheDocument();
@@ -36,9 +40,11 @@ describe('CardCharacter', () => {
 
   test('link with correct href', () => {
     render(
-      <MemoryRouter initialEntries={['/search?page=2']}>
-        <CardCharacter items={mockItems} />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/search?page=2']}>
+          <CardCharacter items={mockItems} />
+        </MemoryRouter>
+      </Provider>
     );
 
     const links = screen.getAllByRole('link');

@@ -1,5 +1,6 @@
 import { type ChangeEvent } from 'react';
 import styles from './SearchBar.module.scss';
+import ThemeSwitcher from './ThemeSwither';
 
 interface Props {
   search: string;
@@ -31,6 +32,7 @@ function SearchBarFn(props: Props) {
       <button className="search-bar__button" onClick={handleClick}>
         Search
       </button>
+      <ThemeSwitcher />
     </div>
   );
 }

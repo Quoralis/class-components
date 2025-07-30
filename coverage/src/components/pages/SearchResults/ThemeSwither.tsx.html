@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/pages/SearchResults/index.tsx</title>
+    <title>Code coverage report for src/components/pages/SearchResults/ThemeSwither.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/components/pages/SearchResults</a> index.tsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/components/pages/SearchResults</a> ThemeSwither.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.77% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/27</span>
+                <span class='fraction'>22/24</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.77% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/27</span>
+                <span class='fraction'>22/24</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -92,70 +92,64 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import SearchBarFn from './SearchBarFn.tsx';
-import { useEffect, useState } from 'react';
-import ResultsFieldFn from './ResultsFieldFn.tsx';
-import { ErrorBoundary } from './ErrorBoundary.tsx';
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { toggleTheme } from '../../../store/themeSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState } from '../../../store/store.ts';
+import styles from './ThemeSwitcher.module.scss';
 &nbsp;
-function SearchPage() {
-  const [search, setSearch] = useState('');
-  const [triggerSearch, setTriggerSearch] = useState(false);
-  useEffect(() =&gt; {
-    const saveSearch = localStorage.getItem('search');
-    if (saveSearch) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      setSearch(saveSearch);</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-  }, []);
-&nbsp;
-  const handleSearch = <span class="fstat-no" title="function not covered" >(search: string) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    setSearch(search);</span>
-<span class="cstat-no" title="statement not covered" >    setTriggerSearch(!triggerSearch);</span>
-<span class="cstat-no" title="statement not covered" >    localStorage.setItem('search', search);</span>
+const ThemeSwitcher = () =&gt; {
+  const actualTheme = useSelector((state: RootState) =&gt; state.theme.theme);
+  const dispatch = useDispatch();
+  const handleTheme = <span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    dispatch(toggleTheme());</span>
 <span class="cstat-no" title="statement not covered" >  };</span>
+&nbsp;
   return (
-    &lt;div className="container"&gt;
-      &lt;SearchBarFn search={search} onSearch={handleSearch} /&gt;
-      &lt;ErrorBoundary&gt;
-        &lt;ResultsFieldFn search={search} triggerSearch={triggerSearch} /&gt;
-      &lt;/ErrorBoundary&gt;
+    &lt;div className={`form-check form-switch ${styles.switcherContainer}`}&gt;
+      &lt;input
+        className="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="switchCheckDefault"
+        onChange={handleTheme}
+      /&gt;
+      &lt;label className="form-check-label" htmlFor="switchCheckDefault"&gt;
+        {actualTheme === <span class="branch-0 cbranch-no" title="branch not covered" >'dark' ? 'Dark theme' : '</span>Light  theme'}
+      &lt;/label&gt;
     &lt;/div&gt;
   );
-}
+};
 &nbsp;
-export default SearchPage;
+export default ThemeSwitcher;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

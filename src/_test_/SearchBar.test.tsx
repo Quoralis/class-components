@@ -3,6 +3,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SearchBarFn from '../components/pages/SearchResults/SearchBarFn.tsx';
 import { useState } from 'react';
+import { Provider } from 'react-redux';
+import store from '../store/store.ts';
 
 describe('Test SearchBar', () => {
   const inputValue = 'Qwerty';
@@ -12,7 +14,12 @@ describe('Test SearchBar', () => {
   const onSearchMok = vi.fn();
 
   beforeEach(() => {
-    render(<SearchBarFn onSearch={onSearchMok} search="Qwerty" />);
+    render(
+      <Provider store={store}>
+        <SearchBarFn onSearch={onSearchMok} search="Qwerty" />
+        );
+      </Provider>
+    );
     input = screen.getByRole('searchbox');
     buttonSearch = screen.getByRole('button', { name: 'Search' });
   });
@@ -46,7 +53,11 @@ describe('SearchBarFn localStorage interaction', () => {
 
   function Wrapper() {
     const [search, setSearch] = useState('');
-    return <SearchBarFn search={search} onSearch={setSearch} />;
+    return (
+      <Provider store={store}>
+        <SearchBarFn search={search} onSearch={setSearch} />
+      </Provider>
+    );
   }
 
   test('adds value to localStorage on button click', async () => {

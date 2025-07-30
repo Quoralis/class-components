@@ -1,7 +1,8 @@
-// src/components/pages/SearchResults/CardCharacter.tsx
 import type { Item } from './ResultsFieldFn';
 import styles from './CardCharacter.module.scss';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../../store/store.ts';
 
 interface Props {
   items: Item[];
@@ -10,10 +11,15 @@ interface Props {
 export default function CardCharacter({ items }: Props) {
   const [searchParams] = useSearchParams();
   const query = searchParams.toString();
+  const actualTheme = useSelector((state: RootState) => state.theme.theme);
+
   return (
     <ul className={styles['card-list']}>
       {items.map((item) => (
-        <li key={item.uid} className={styles['card']}>
+        <li
+          key={item.uid}
+          className={`${styles.card} ${actualTheme === 'dark' ? styles.cardDark : ''}`}
+        >
           <Link
             to={`/details/${item.uid}${query ? `?${query}` : ''}`}
             className={styles['card-link']}
