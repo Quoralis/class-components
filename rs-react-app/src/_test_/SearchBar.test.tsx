@@ -1,17 +1,18 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { SearchBar } from '../components/SearchBar.tsx';
 import userEvent from '@testing-library/user-event';
+import SearchBarFn from '../components/pages/SearchResults/SearchBarFn.tsx';
+import { useState } from 'react';
 
 describe('Test SearchBar', () => {
-  const inputValue = '';
+  const inputValue = 'Qwerty';
   let input: HTMLInputElement;
   let buttonSearch: HTMLButtonElement;
   const user = userEvent.setup();
   const onSearchMok = vi.fn();
 
   beforeEach(() => {
-    render(<SearchBar onSearch={onSearchMok} />);
+    render(<SearchBarFn onSearch={onSearchMok} search="Qwerty" />);
     input = screen.getByRole('textbox');
     buttonSearch = screen.getByRole('button', { name: 'Search' });
   });
@@ -32,7 +33,42 @@ describe('Test SearchBar', () => {
   test('test button is clicked ', async () => {
     await user.type(input, 'Qwerty');
     await user.click(buttonSearch);
-
     expect(onSearchMok).toHaveBeenCalledWith('Qwerty');
+  });
+});
+
+describe('SearchBarFn localStorage interaction', () => {
+  const user = userEvent.setup();
+
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  function Wrapper() {
+    const [search, setSearch] = useState('');
+    return <SearchBarFn search={search} onSearch={setSearch} />;
+  }
+
+  test('adds value to localStorage on button click', async () => {
+    render(<Wrapper />);
+    const input = screen.getByPlaceholderText(/enter name character/i);
+    const button = screen.getByRole('button', { name: /search/i });
+
+    await user.type(input, 'Spock');
+    await user.click(button);
+
+    expect(localStorage.getItem('search')).toBe('Spock');
+  });
+
+  test('does not save empty', async () => {
+    render(<Wrapper />); // Wrapper — компонент с useState
+
+    const input = screen.getByPlaceholderText(/enter name character/i);
+    const button = screen.getByRole('button', { name: /search/i });
+
+    await user.type(input, '   ');
+    await user.click(button);
+
+    expect(localStorage.getItem('search')).toBeNull();
   });
 });

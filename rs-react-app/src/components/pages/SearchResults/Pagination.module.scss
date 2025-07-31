@@ -1,0 +1,16 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  span {
+    font-size: 0.9rem;
+    color: #333;
+  };
+}
+.disable {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+  user-select: none;
+  filter: grayscale(0.4);
+}

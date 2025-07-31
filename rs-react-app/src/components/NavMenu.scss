@@ -1,0 +1,16 @@
+.navbar {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+  gap: 2em;
+  a{
+    color: white;
+  }
+  .pending{
+    color: red;
+  }
+  .active{
+    color: rgba(158, 207, 243, 0.78);
+  }
+}

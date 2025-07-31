@@ -1,37 +1,20 @@
-import { Component } from 'react';
-import { SearchBar } from './components/SearchBar.tsx';
-import { ResultsField } from './components/ResultsField.tsx';
-import { ErrorBoundary } from './components/ErrorBoundary.tsx';
+import { Route, Routes } from 'react-router-dom';
+import Page404 from './components/pages/Page404/Page404.tsx';
+import AboutPage from './components/pages/About/AboutPage.tsx';
+import Layout from './Layout.tsx';
+import DetailLayout from './DetailLayuot.tsx';
+import SearchPage from './components/pages/SearchResults';
 
-interface State {
-  search: string;
-  triggerSearch: boolean;
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<SearchPage />} />
+        <Route path="details/:id" element={<DetailLayout />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="*" element={<Page404 />} />
+      </Route>
+    </Routes>
+  );
 }
-
-export default class App extends Component<object, State> {
-  state: State = {
-    search: '',
-    triggerSearch: false,
-  };
-
-  handleSearch = (search: string) => {
-    this.setState((prevState) => ({
-      search,
-      triggerSearch: !prevState.triggerSearch,
-    }));
-  };
-
-  render() {
-    return (
-      <div className="container">
-        <SearchBar onSearch={this.handleSearch} />
-        <ErrorBoundary>
-          <ResultsField
-            search={this.state.search}
-            triggerSearch={this.state.triggerSearch}
-          />
-        </ErrorBoundary>
-      </div>
-    );
-  }
-}
+export default App;
