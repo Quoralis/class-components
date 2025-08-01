@@ -2,12 +2,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../../store/store.ts';
 import { unSelectCards } from '../../../store/selectSlice.ts';
 import styles from './SelectedLayout.module.scss';
+import { downloadCsv } from '../../utils/downloadCsv.ts';
 
 function SelectedLayout() {
   const checkBox = useSelector((state: RootState) => state.selector.cards);
   const dispatch = useDispatch();
   const actualTheme = useSelector((state: RootState) => state.theme.theme);
-
   if (checkBox.length === 0) return null;
   return (
     <div
@@ -26,6 +26,7 @@ function SelectedLayout() {
       </span>
 
       <button
+        onClick={() => downloadCsv(checkBox, checkBox.length)}
         className={`${styles['btn-action']} ${actualTheme === 'dark' ? 'buttonDark' : ''}`}
       >
         Download
