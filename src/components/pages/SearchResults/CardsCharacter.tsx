@@ -13,14 +13,14 @@ export default function CardCharacter({ items }: Props) {
   const [searchParams] = useSearchParams();
   const query = searchParams.toString();
   const actualTheme = useSelector((state: RootState) => state.theme.theme);
-  const checkBox = useSelector((state: RootState) => state.selector.idCards);
+  const checkBox = useSelector((state: RootState) => state.selector.cards);
   const dispatch = useDispatch();
 
-  const handelCheckBox = (id: string) => {
-    if (!checkBox.includes(id)) {
-      dispatch(addCards(id));
+  const handelCheckBox = (item: Item, uid: string) => {
+    if (!checkBox.some((item) => item.uid === uid)) {
+      dispatch(addCards(item));
     } else {
-      dispatch(removeCards(id));
+      dispatch(removeCards(uid));
     }
   };
 
@@ -33,10 +33,10 @@ export default function CardCharacter({ items }: Props) {
         >
           <input
             onChange={() => {
-              handelCheckBox(item.uid);
+              handelCheckBox(item, item.uid);
             }}
             type="checkbox"
-            checked={checkBox.includes(item.uid)}
+            checked={checkBox.includes(item)}
           />
           <Link
             to={`/details/${item.uid}${query ? `?${query}` : ''}`}

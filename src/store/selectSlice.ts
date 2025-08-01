@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import type { Item } from '../hooks/useDataCharacters.ts';
 
 interface initialState {
-  idCards: string[];
+  cards: Item[];
 }
 
 const initialState: initialState = {
-  idCards: [],
+  cards: [],
 };
 
 const selectSlice = createSlice({
@@ -13,16 +14,13 @@ const selectSlice = createSlice({
   initialState,
   reducers: {
     addCards: (state, action) => {
-      state.idCards.push(action.payload);
+      state.cards.push(action.payload);
     },
     removeCards(state, action) {
-      state.idCards = state.idCards.filter(
-        (itemId) => itemId !== action.payload
-      );
-      console.log(state.idCards);
+      state.cards = state.cards.filter((item) => item.uid !== action.payload);
     },
     unSelectCards(state) {
-      state.idCards = [];
+      state.cards = [];
     },
   },
 });

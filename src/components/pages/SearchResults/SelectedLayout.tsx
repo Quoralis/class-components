@@ -4,7 +4,7 @@ import { unSelectCards } from '../../../store/selectSlice.ts';
 import styles from './SelectedLayout.module.scss';
 
 function SelectedLayout() {
-  const checkBox = useSelector((state: RootState) => state.selector.idCards);
+  const checkBox = useSelector((state: RootState) => state.selector.cards);
   const dispatch = useDispatch();
   const actualTheme = useSelector((state: RootState) => state.theme.theme);
 
