@@ -3,9 +3,9 @@ import CardCharacter from './CardsCharacter';
 import Pagination from './Pagination';
 import styles from './ResultsFieldFn.module.scss';
 import { useSearchParams } from 'react-router-dom';
-import useCharacterSearch from '../../../hooks/useDataCharacters';
+import useCharacterSearch from '../../hooks/useDataCharacters';
 import { useSelector } from 'react-redux';
-import type { RootState } from '../../../store/store.ts';
+import type { RootState } from '../../store/store';
 
 interface Props {
   search: string;

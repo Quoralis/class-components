@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
-import Page404 from './components/pages/Page404/Page404.tsx';
-import AboutPage from './components/pages/About/AboutPage.tsx';
-import Layout from './Layout.tsx';
-import DetailLayout from './DetailLayuot.tsx';
-import SearchPage from './components/pages/SearchResults';
-import { ThemeProvider } from './components/context/ThemeProvider.tsx';
+import Page404 from './layout/Page404/Page404';
+import AboutPage from './layout/About/AboutPage';
+import Layout from './layout/Layout';
+import DetailLayout from './layout/DetailLayuot';
+import SearchPage from './layout/SearchResults';
+import { ThemeProvider } from './components/context/ThemeProvider';
 
 function App() {
   return (

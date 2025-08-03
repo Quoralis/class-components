@@ -1,9 +1,9 @@
 import { describe, test, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import CardCharacter from '../components/pages/SearchResults/CardsCharacter';
 import { Provider } from 'react-redux';
 import store from '../store/store';
+import CardCharacter from '../layout/SearchResults/CardsCharacter';
 
 const mockItems = [
   {

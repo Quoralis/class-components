@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import Page404 from '../components/pages/Page404/Page404.tsx';
 import { expect, test } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
+import Page404 from '../layout/Page404/Page404';
 
 test('Page404 shows not found text', () => {
   render(

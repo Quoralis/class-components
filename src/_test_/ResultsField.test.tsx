@@ -1,11 +1,11 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ErrorBoundary } from '../components/pages/SearchResults/ErrorBoundary';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import ResultsFieldFn from '../components/pages/SearchResults/ResultsFieldFn.tsx';
 import store from '../store/store.ts';
+import { ErrorBoundary } from '../layout/SearchResults/ErrorBoundary';
+import ResultsFieldFn from '../layout/SearchResults/ResultsFieldFn';
 
 describe('Test ResultsField', () => {
   const user = userEvent.setup();

@@ -1,6 +1,6 @@
 import styles from './Pagination.module.scss';
 import { useSelector } from 'react-redux';
-import type { RootState } from '../../../store/store.ts';
+import type { RootState } from '../../store/store';
 
 interface PaginationProps {
   currentPage: number;

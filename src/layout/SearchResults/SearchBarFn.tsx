@@ -2,7 +2,7 @@ import { type ChangeEvent } from 'react';
 import styles from './SearchBar.module.scss';
 import ThemeSwitcher from './ThemeSwither';
 import { useSelector } from 'react-redux';
-import type { RootState } from '../../../store/store.ts';
+import type { RootState } from '../../store/store.ts';
 
 interface Props {
   search: string;

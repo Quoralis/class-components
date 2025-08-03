@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SearchBarFn from '../components/pages/SearchResults/SearchBarFn.tsx';
 import { useState } from 'react';
 import { Provider } from 'react-redux';
 import store from '../store/store.ts';
+import SearchBarFn from '../layout/SearchResults/SearchBarFn';
 
 describe('Test SearchBar', () => {
   const inputValue = 'Qwerty';

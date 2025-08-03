@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import AboutPage from '../components/pages/About/AboutPage.tsx';
 import { expect, test } from 'vitest';
+import AboutPage from '../layout/About/AboutPage';
 
 test('AboutPage renders content', () => {
   render(<AboutPage />);

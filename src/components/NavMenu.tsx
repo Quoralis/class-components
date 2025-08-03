@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import './NavMenu.scss';
-import { navLinkClass } from './utils/navLinkClass.ts';
+import { navLinkClass } from '../utils/navLinkClass.ts';
 
 function NavMenu() {
   return (

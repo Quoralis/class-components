@@ -2,8 +2,8 @@ import type { Item } from './ResultsFieldFn';
 import styles from './CardCharacter.module.scss';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from '../../../store/store.ts';
-import { addCards, removeCards } from '../../../store/selectSlice.ts';
+import type { RootState } from '../../store/store';
+import { addCards, removeCards } from '../../store/selectSlice';
 
 interface Props {
   items: Item[];

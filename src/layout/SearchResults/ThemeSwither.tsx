@@ -1,6 +1,6 @@
-import { toggleTheme } from '../../../store/themeSlice';
+import { toggleTheme } from '../../store/themeSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import type { RootState } from '../../../store/store.ts';
+import type { RootState } from '../../store/store';
 import styles from './ThemeSwitcher.module.scss';
 
 const ThemeSwitcher = () => {
