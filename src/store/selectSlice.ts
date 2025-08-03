@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Item } from '../hooks/useDataCharacters.ts';
+import type { Item } from '../layout/SearchResults/ResultsFieldFn.tsx';
 
 interface InitialState {
   cards: Item[];
