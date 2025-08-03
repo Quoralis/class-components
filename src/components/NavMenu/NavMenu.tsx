@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import './NavMenu.scss';
-import { navLinkClass } from '../utils/navLinkClass.ts';
+import './NavMenu.module.scss';
+import { navLinkClass } from '../../utils/navLinkClass.ts';
 
-function NavMenu() {
+export function NavMenu() {
   return (
     <nav className="navbar">
       <NavLink to="/" end className={navLinkClass}>
@@ -14,4 +14,3 @@ function NavMenu() {
     </nav>
   );
 }
-export default NavMenu;

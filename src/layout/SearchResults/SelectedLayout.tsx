@@ -4,11 +4,12 @@ import { unSelectCards } from '../../store/selectSlice';
 import styles from './SelectedLayout.module.scss';
 import { transformToCSV } from '../../utils/transformToCSV.ts';
 import { useState } from 'react';
+import { useTheme } from '../../hooks/useTheme.tsx';
 
 function SelectedLayout() {
   const checkBox = useSelector((state: RootState) => state.selector.cards);
   const dispatch = useDispatch();
-  const actualTheme = useSelector((state: RootState) => state.theme.theme);
+  const { theme: actualTheme } = useTheme();
   const [downloadUrl, setDownloadUrl] = useState<string>();
   if (checkBox.length === 0) return null;
 

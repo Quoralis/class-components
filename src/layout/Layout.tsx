@@ -1,4 +1,4 @@
-import NavMenu from '../components/NavMenu.tsx';
+import { NavMenu } from '../components';
 import { Outlet } from 'react-router-dom';
 
 function Layout() {

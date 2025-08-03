@@ -1,15 +1,9 @@
-import { toggleTheme } from '../../store/themeSlice';
-import { useSelector, useDispatch } from 'react-redux';
-import type { RootState } from '../../store/store';
 import styles from './ThemeSwitcher.module.scss';
+import { useTheme } from '../../hooks/useTheme.tsx';
 
 const ThemeSwitcher = () => {
-  const actualTheme = useSelector((state: RootState) => state.theme.theme);
-  const dispatch = useDispatch();
-  const handleTheme = () => {
-    dispatch(toggleTheme());
-  };
-
+  const { theme: actualTheme } = useTheme();
+  const { handleTheme } = useTheme();
   return (
     <div className={`form-check form-switch ${styles.switcherContainer}`}>
       <input

@@ -1,8 +1,7 @@
 import { type ChangeEvent } from 'react';
 import styles from './SearchBar.module.scss';
 import ThemeSwitcher from './ThemeSwither';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../../store/store.ts';
+import { useTheme } from '../../hooks/useTheme.tsx';
 
 interface Props {
   search: string;
@@ -10,8 +9,7 @@ interface Props {
 }
 
 function SearchBarFn(props: Props) {
-  const actualTheme = useSelector((state: RootState) => state.theme.theme);
-
+  const { theme: actualTheme } = useTheme();
   const handleClick = () => {
     const clearSearch = props.search.trim();
     if (clearSearch) {

@@ -1,6 +1,5 @@
 import styles from './Pagination.module.scss';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../../store/store';
+import { useTheme } from '../../hooks/useTheme.tsx';
 
 interface PaginationProps {
   currentPage: number;
@@ -9,8 +8,7 @@ interface PaginationProps {
 }
 
 function Pagination(props: PaginationProps) {
-  const actualTheme = useSelector((state: RootState) => state.theme.theme);
-
+  const { theme: actualTheme } = useTheme();
   return (
     <div key={'pagination'} className={styles['pagination']}>
       <button

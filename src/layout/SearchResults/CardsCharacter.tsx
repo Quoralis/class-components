@@ -4,6 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { addCards, removeCards } from '../../store/selectSlice';
+import { useTheme } from '../../hooks/useTheme.tsx';
 
 interface Props {
   items: Item[];
@@ -12,7 +13,7 @@ interface Props {
 export default function CardCharacter({ items }: Props) {
   const [searchParams] = useSearchParams();
   const query = searchParams.toString();
-  const actualTheme = useSelector((state: RootState) => state.theme.theme);
+  const { theme: actualTheme } = useTheme();
   const checkBox = useSelector((state: RootState) => state.selector.cards);
   const dispatch = useDispatch();
 
