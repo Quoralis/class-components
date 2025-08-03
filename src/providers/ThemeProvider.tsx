@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useCallback, useState } from 'react';
 import { createContext } from 'react';
 
 export interface ThemeContextType {
@@ -15,10 +15,9 @@ export const ThemeContext = createContext<ThemeContextType>(initialTheme);
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
-  const handleThemeChange = () => {
+  const handleThemeChange = useCallback(() => {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
-    console.log(theme);
-  };
+  }, []);
   return (
     <ThemeContext.Provider value={{ theme, handleTheme: handleThemeChange }}>
       {children}

@@ -1,22 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { Item } from '../hooks/useDataCharacters.ts';
 
-interface initialState {
+interface InitialState {
   cards: Item[];
 }
 
-const initialState: initialState = {
+const initialState: InitialState = {
   cards: [],
 };
+type ItemUid = Item['uid'];
 
 const selectSlice = createSlice({
   name: 'selectSlice',
   initialState,
   reducers: {
-    addCards: (state, action) => {
+    addCards: (state, action: PayloadAction<Item>) => {
       state.cards.push(action.payload);
     },
-    removeCards(state, action) {
+    removeCards(state, action: PayloadAction<ItemUid>) {
       state.cards = state.cards.filter((item) => item.uid !== action.payload);
     },
     unSelectCards(state) {
