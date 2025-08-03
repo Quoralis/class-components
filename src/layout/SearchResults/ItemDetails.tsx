@@ -1,5 +1,5 @@
 import { useParams, useSearchParams, Link } from 'react-router-dom';
-import useCharacterById from '../../hooks/useDataCharacterByUid';
+import useCharacterById from '../../hooks/useCharacterById';
 import styles from './ItemDetails.module.scss';
 
 export default function ItemDetails() {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { Item } from '../components/pages/SearchResults/ResultsFieldFn';
+import type { Item } from '../layout/SearchResults/ResultsFieldFn.tsx';
 
 interface CharacterByIdResponse {
   character: Item;

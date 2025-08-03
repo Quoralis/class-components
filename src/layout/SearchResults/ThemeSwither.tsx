@@ -2,8 +2,7 @@ import styles from './ThemeSwitcher.module.scss';
 import { useTheme } from '../../hooks/useTheme.tsx';
 
 const ThemeSwitcher = () => {
-  const { theme: actualTheme } = useTheme();
-  const { handleTheme } = useTheme();
+  const { theme: actualTheme, handleTheme } = useTheme();
   return (
     <div className={`form-check form-switch ${styles.switcherContainer}`}>
       <input
