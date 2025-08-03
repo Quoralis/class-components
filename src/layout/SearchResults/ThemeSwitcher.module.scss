@@ -1,0 +1,14 @@
+.switcherContainer {
+  display: flex;
+  font-size: 0.7em;
+  color: cornsilk;
+  padding-left: 0;
+  flex-direction: column;
+  align-items: center;
+
+  :global(.form-check-input) {
+    margin-left: 0;
+    cursor: pointer;
+    width: 50%;
+  }
+}
