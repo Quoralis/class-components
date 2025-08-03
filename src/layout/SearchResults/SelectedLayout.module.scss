@@ -14,11 +14,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  background-color: #0077cc;
+  font-weight: bold;
+  font-size: 0.9em;
+  width: 10%;
+  color: #fff;
   margin: 0 8px;
   border: none;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
   transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  border-radius: 6px;
+  text-decoration: none;
+
 }
 
 .btn-action:hover {

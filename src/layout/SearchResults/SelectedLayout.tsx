@@ -2,13 +2,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { unSelectCards } from '../../store/selectSlice';
 import styles from './SelectedLayout.module.scss';
-import { downloadCsv } from '../../utils/downloadCsv';
+import { transformToCSV } from '../../utils/transformToCSV.ts';
+import { useState } from 'react';
 
 function SelectedLayout() {
   const checkBox = useSelector((state: RootState) => state.selector.cards);
   const dispatch = useDispatch();
   const actualTheme = useSelector((state: RootState) => state.theme.theme);
+  const [downloadUrl, setDownloadUrl] = useState<string>();
   if (checkBox.length === 0) return null;
+
+  const downloadCsv = () => {
+    const csvStr = transformToCSV(checkBox);
+    const blob = new Blob([csvStr], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    setDownloadUrl(url);
+  };
+
   return (
     <div
       className={`${styles['selected-layout']} ${actualTheme === 'dark' ? styles['selected-layout-dark'] : ''}`}
@@ -24,13 +34,17 @@ function SelectedLayout() {
       >
         {`${checkBox.length > 0 ? checkBox.length : ''} item(s) are selected`}{' '}
       </span>
-
-      <button
-        onClick={() => downloadCsv(checkBox, checkBox.length)}
+      <a
+        type="button"
+        onClick={() => {
+          downloadCsv();
+        }}
+        href={downloadUrl}
+        download={`${checkBox.length.toString()}_item(s).csv`}
         className={`${styles['btn-action']} ${actualTheme === 'dark' ? 'buttonDark' : ''}`}
       >
         Download
-      </button>
+      </a>
     </div>
   );
 }
