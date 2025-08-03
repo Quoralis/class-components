@@ -20,7 +20,7 @@ function SearchPage() {
     localStorage.setItem('search', search);
   };
   return (
-    <div className="container">
+    <div className="wrapper-results">
       <SearchBarFn search={search} onSearch={handleSearch} />
       <ErrorBoundary>
         <ResultsFieldFn search={search} triggerSearch={triggerSearch} />

@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
-import './NavMenu.module.scss';
+import styles from './NavMenu.module.scss';
 import { navLinkClass } from '../../utils/navLinkClass.ts';
 
 export function NavMenu() {
   return (
-    <nav className="navbar">
+    <nav className={styles.navbar}>
       <NavLink to="/" end className={navLinkClass}>
         Main
       </NavLink>

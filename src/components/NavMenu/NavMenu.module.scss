@@ -4,13 +4,16 @@
   justify-content: center;
 
   gap: 2em;
-  a{
+
+  a {
     color: white;
   }
-  .pending{
+
+  .pending {
     color: red;
   }
-  .active{
+
+  .active {
     color: rgba(158, 207, 243, 0.78);
   }
 }

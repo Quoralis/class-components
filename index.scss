@@ -46,6 +46,11 @@ button {
   background-color: #d7e3ed;
   color: #005fa3;
 }
+.wrapper-results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+}
 
 
 
