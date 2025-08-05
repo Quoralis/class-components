@@ -5,7 +5,6 @@
   padding: 0;
   margin: 0;
   justify-content: space-between;
-
 }
 
 .card {
@@ -19,9 +18,10 @@
   padding: 0.5rem;
   width: 40%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   list-style: none;
-
 
   &:hover {
     transform: translateY(-4px);
@@ -69,4 +69,3 @@
     color: #acbcf6;
   }
 }
-

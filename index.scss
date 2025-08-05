@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   font-size: 1em;
   color: #333;
   background-image: url('./src/assets/StarTrek_bck.jpeg');
@@ -23,7 +23,6 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border-radius: 8px;
   gap: 0.7em;
-
 }
 
 button {
@@ -51,7 +50,3 @@ button {
   flex-direction: column;
   gap: 0.7em;
 }
-
-
-
-
