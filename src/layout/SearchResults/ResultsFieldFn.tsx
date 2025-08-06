@@ -3,23 +3,13 @@ import CardCharacter from './CardsCharacter';
 import Pagination from './Pagination';
 import styles from './ResultsFieldFn.module.scss';
 import { useSearchParams } from 'react-router-dom';
-import useCharacterSearch from '../../hooks/useCharacters';
 import { useTheme } from '../../hooks/useTheme.tsx';
+import { useGetCharactersQuery } from '../../store/characterApi.ts';
+import { filterCharacterResponse } from '../../utils/filterCharacterResponse.ts';
 
 interface Props {
   search: string;
   triggerSearch: boolean;
-}
-
-export interface Item {
-  uid: string;
-  name: string;
-  birthDate?: string;
-  deathDate?: string;
-  gender?: string;
-  species?: string;
-  homeWorld?: string;
-  hologram?: boolean;
 }
 
 function ResultsField(props: Props) {
@@ -27,18 +17,21 @@ function ResultsField(props: Props) {
   const [throwError, setThrowError] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
+
   function onPageChange(currentPage: number) {
     setCurrentPage(currentPage);
     setSearchParams({ page: String(currentPage + 1) });
   }
+
   const pageFromUrl = parseInt(searchParams.get('page') || '1', 10);
   const validPage =
     !isNaN(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl - 1 : 0;
-  const { data, totalPages, loading, error } = useCharacterSearch(
-    props.search,
-    validPage,
-    props.triggerSearch
-  );
+  const { data, isLoading, error } = useGetCharactersQuery(validPage);
+
+  if (!data) return null;
+
+  const searchData = filterCharacterResponse(data, props.search);
+  console.log(searchData);
 
   const throwErr = () => {
     setThrowError(true);
@@ -47,19 +40,19 @@ function ResultsField(props: Props) {
   if (throwError) {
     throw new Error('Render error');
   }
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{'Error loading'}</div>;
 
   return (
     <div data-testid="results" className={styles['container__results']}>
-      {data.length === 0 ? (
+      {searchData.characters.length === 0 ? (
         <p>No results found.</p>
       ) : (
-        <CardCharacter items={data} />
+        <CardCharacter items={searchData.characters} />
       )}
       <Pagination
         currentPage={currentPage}
-        totalPages={totalPages}
+        totalPages={searchData.page.totalPages}
         onPageChange={onPageChange}
       />
       <button
