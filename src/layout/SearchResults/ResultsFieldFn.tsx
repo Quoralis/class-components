@@ -26,12 +26,13 @@ function ResultsField(props: Props) {
   const pageFromUrl = parseInt(searchParams.get('page') || '1', 10);
   const validPage =
     !isNaN(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl - 1 : 0;
-  const { data, isLoading, error } = useGetCharactersQuery(validPage);
+  const { data, isLoading, isFetching, error } =
+    useGetCharactersQuery(validPage);
 
   if (!data) return null;
 
   const searchData = filterCharacterResponse(data, props.search);
-  console.log(searchData);
+  console.log(isLoading);
 
   const throwErr = () => {
     setThrowError(true);
@@ -40,11 +41,15 @@ function ResultsField(props: Props) {
   if (throwError) {
     throw new Error('Render error');
   }
-  if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{'Error loading'}</div>;
 
   return (
     <div data-testid="results" className={styles['container__results']}>
+      {(isLoading || isFetching) && (
+        <div className={styles.loadingOn}>
+          <div className={styles.spinner}></div>
+        </div>
+      )}
       {searchData.characters.length === 0 ? (
         <p>No results found.</p>
       ) : (
