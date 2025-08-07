@@ -1,14 +1,12 @@
 export interface CharacterDataResponse {
-  character: {
-    uid: string;
-    name: string;
-    birthDate?: string;
-    deathDate?: string;
-    gender?: string;
-    species?: string;
-    homeWorld?: string;
-    hologram?: boolean;
-  };
+  uid: string;
+  name: string;
+  birthDate?: string;
+  deathDate?: string;
+  gender?: string;
+  species?: string;
+  homeWorld?: string;
+  hologram?: boolean;
 }
 
 export interface PageInfo {
@@ -21,4 +19,7 @@ export interface PageInfo {
 export interface CharacterSearchResponse {
   characters: CharacterDataResponse[];
   page: PageInfo;
+}
+export interface CharacterByIdResponse {
+  character: CharacterDataResponse;
 }

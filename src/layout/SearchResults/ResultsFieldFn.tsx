@@ -28,7 +28,6 @@ function ResultsField(props: Props) {
     !isNaN(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl - 1 : 0;
   const { data, isLoading, isFetching, error } =
     useGetCharactersQuery(validPage);
-
   if (!data) return null;
 
   const searchData = filterCharacterResponse(data, props.search);

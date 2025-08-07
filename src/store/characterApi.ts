@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type {
-  CharacterDataResponse,
+  CharacterByIdResponse,
   CharacterSearchResponse,
 } from './types/types.ts';
 
@@ -11,7 +11,7 @@ export const characterApi = createApi({
     getCharacters: builder.query<CharacterSearchResponse, number>({
       query: (page) => `character/search?pageNumber=${page}&pageSize=16`,
     }),
-    getCharacterById: builder.query<CharacterDataResponse, string>({
+    getCharacterById: builder.query<CharacterByIdResponse, string>({
       query: (uid) => `character?uid=${uid}`,
     }),
   }),
