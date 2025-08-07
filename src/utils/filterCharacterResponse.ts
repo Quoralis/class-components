@@ -1,23 +1,7 @@
-export interface CharacterSearchResponse {
-  characters: Item[];
-  page: {
-    pageNumber?: number;
-    pageSize?: number;
-    totalElements?: number;
-    totalPages: number;
-  };
-}
-
-export interface Item {
-  uid: string;
-  name: string;
-  birthDate?: string;
-  deathDate?: string;
-  gender?: string;
-  species?: string;
-  homeWorld?: string;
-  hologram?: boolean;
-}
+import type {
+  CharacterDataResponse,
+  CharacterSearchResponse,
+} from '../store/types/types.ts';
 
 export function filterCharacterResponse(
   data: CharacterSearchResponse,
@@ -25,7 +9,7 @@ export function filterCharacterResponse(
 ): CharacterSearchResponse {
   const formattedSearch = search.trim().toLowerCase();
   if (!formattedSearch) return data;
-  const filteredData = data.characters.filter((char: Item) =>
+  const filteredData = data.characters.filter((char: CharacterDataResponse) =>
     char.name.toLowerCase().includes(formattedSearch)
   );
   const pageSize = data.page.pageSize;

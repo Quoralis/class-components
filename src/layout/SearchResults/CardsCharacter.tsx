@@ -1,13 +1,13 @@
-import type { Item } from './ResultsFieldFn';
 import styles from './CardCharacter.module.scss';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { addCards, removeCards } from '../../store/selectSlice';
 import { useTheme } from '../../hooks/useTheme.tsx';
+import type { CharacterDataResponse } from '../../store/types/types.ts';
 
 interface Props {
-  items: Item[];
+  items: CharacterDataResponse[];
 }
 
 export default function CardCharacter({ items }: Props) {
@@ -17,7 +17,7 @@ export default function CardCharacter({ items }: Props) {
   const checkBox = useSelector((state: RootState) => state.selector.cards);
   const dispatch = useDispatch();
 
-  const handelCheckBox = (item: Item, uid: string) => {
+  const handelCheckBox = (item: CharacterDataResponse, uid: string) => {
     if (!checkBox.some((item) => item.uid === uid)) {
       dispatch(addCards(item));
     } else {

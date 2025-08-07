@@ -1,20 +1,19 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Item } from '../layout/SearchResults/ResultsFieldFn.tsx';
-
+import type { CharacterDataResponse } from './types/types.ts';
 interface InitialState {
-  cards: Item[];
+  cards: CharacterDataResponse[];
 }
 
 const initialState: InitialState = {
   cards: [],
 };
-type ItemUid = Item['uid'];
+type ItemUid = CharacterDataResponse['uid'];
 
 const selectSlice = createSlice({
   name: 'selectSlice',
   initialState,
   reducers: {
-    addCards: (state, action: PayloadAction<Item>) => {
+    addCards: (state, action: PayloadAction<CharacterDataResponse>) => {
       state.cards.push(action.payload);
     },
     removeCards(state, action: PayloadAction<ItemUid>) {

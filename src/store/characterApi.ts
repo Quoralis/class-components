@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { CharacterSearchResponse } from '../hooks/useCharacters.ts';
+import type { CharacterSearchResponse } from './types/types.ts';
 
 export const characterApi = createApi({
   reducerPath: 'characterApi',

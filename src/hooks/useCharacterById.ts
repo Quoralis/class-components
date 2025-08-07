@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import type { Item } from '../layout/SearchResults/ResultsFieldFn.tsx';
+import type { CharacterDataResponse } from '../store/types/types.ts';
 
 interface CharacterByIdResponse {
-  character: Item;
+  character: CharacterDataResponse;
 }
 
 export default function useCharacterById(uid: string) {
-  const [character, setCharacter] = useState<Item | null>(null);
+  const [character, setCharacter] = useState<CharacterDataResponse | null>(
+    null
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
