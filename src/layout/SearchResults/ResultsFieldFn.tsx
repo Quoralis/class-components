@@ -32,7 +32,6 @@ function ResultsField(props: Props) {
   if (!data) return null;
 
   const searchData = filterCharacterResponse(data, props.search);
-  console.log(isLoading);
 
   const throwErr = () => {
     setThrowError(true);

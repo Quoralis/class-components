@@ -10,7 +10,6 @@ export default function ItemDetails() {
   const { data, isLoading, error } = useGetCharacterByIdQuery(id ?? '', {
     skip: !id,
   });
-
   if (!id) {
     return <div>Missing UID</div>;
   }
@@ -28,15 +27,15 @@ export default function ItemDetails() {
 
   return (
     <div className={styles['container_details']}>
-      <h2>{data.name}</h2>
+      <h2>{data.character.name}</h2>
       <p>
-        <strong>UID:</strong> {data.uid || 'unknown'}
+        <strong>UID:</strong> {data.character.uid || 'unknown'}
       </p>
       <p>
-        <strong>Species:</strong> {data.species || 'unknown'}
+        <strong>Species:</strong> {data.character.species || 'unknown'}
       </p>
       <p>
-        <strong>Home World:</strong> {data.homeWorld || 'unknown'}
+        <strong>Home World:</strong> {data.character.homeWorld || 'unknown'}
       </p>
 
       <Link to={`/?${query}`}>
