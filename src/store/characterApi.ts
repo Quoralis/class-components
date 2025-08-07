@@ -1,5 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { CharacterSearchResponse } from './types/types.ts';
+import type {
+  CharacterDataResponse,
+  CharacterSearchResponse,
+} from './types/types.ts';
 
 export const characterApi = createApi({
   reducerPath: 'characterApi',
@@ -8,7 +11,10 @@ export const characterApi = createApi({
     getCharacters: builder.query<CharacterSearchResponse, number>({
       query: (page) => `character/search?pageNumber=${page}&pageSize=16`,
     }),
+    getCharacterById: builder.query<CharacterDataResponse, string>({
+      query: (uid) => `character?uid=${uid}`,
+    }),
   }),
 });
 
-export const { useGetCharactersQuery } = characterApi;
+export const { useGetCharactersQuery, useGetCharacterByIdQuery } = characterApi;
