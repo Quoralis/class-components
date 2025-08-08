@@ -6,11 +6,21 @@ import type {
 
 export const characterApi = createApi({
   reducerPath: 'characterApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://stapi.co/api/v1/rest' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://stapi.co/api/v1/rest/' }),
   endpoints: (builder) => ({
-    getCharacters: builder.query<CharacterSearchResponse, number>({
-      query: (page) => `character/search?pageNumber=${page}&pageSize=16`,
+    getCharacters: builder.query<
+      CharacterSearchResponse,
+      { page: number; name: string }
+    >({
+      query: ({ page, name }) => ({
+        url: `character/search?pageNumber=${page}&pageSize=16&sort=name,ASC&name=${encodeURIComponent(
+          name.trim()
+        )}`,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      }),
     }),
+
     getCharacterById: builder.query<CharacterByIdResponse, string>({
       query: (uid) => `character?uid=${uid}`,
     }),

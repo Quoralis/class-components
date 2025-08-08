@@ -4,7 +4,6 @@ import Pagination from './Pagination';
 import styles from './ResultsFieldFn.module.scss';
 import { useSearchParams } from 'react-router-dom';
 import { useGetCharactersQuery } from '../../store/characterApi.ts';
-import { filterCharacterResponse } from '../../utils/filterCharacterResponse.ts';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../store/store.ts';
 
@@ -26,17 +25,27 @@ function ResultsField() {
     !isNaN(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl - 1 : 0;
 
   useEffect(() => {
+    setCurrentPage(0);
+    setSearchParams(
+      (prev) => {
+        const page = new URLSearchParams(prev);
+        page.set('page', '1');
+        return page;
+      },
+      { replace: true }
+    );
+  }, [searchFromStore]);
+
+  useEffect(() => {
     setCurrentPage(validPage);
   }, [validPage]);
-
-  const { data, isLoading, isFetching, error } =
-    useGetCharactersQuery(validPage);
+  const { data, isLoading, isFetching, error } = useGetCharactersQuery({
+    page: validPage,
+    name: searchFromStore,
+  });
+  if (error) return <div>{'Error loading'}</div>;
 
   if (!data) return null;
-
-  const searchData = filterCharacterResponse(data, searchFromStore);
-
-  if (error) return <div>{'Error loading'}</div>;
 
   return (
     <div data-testid="results" className={styles['container__results']}>
@@ -45,14 +54,14 @@ function ResultsField() {
           <div className={styles.spinner}></div>
         </div>
       )}
-      {searchData.characters.length === 0 ? (
+      {data.characters.length === 0 ? (
         <p>No results found.</p>
       ) : (
-        <CardCharacter items={searchData.characters} />
+        <CardCharacter items={data.characters} />
       )}
       <Pagination
         currentPage={currentPage}
-        totalPages={searchData.page.totalPages}
+        totalPages={data.page.totalPages}
         onPageChange={onPageChange}
       />
     </div>
