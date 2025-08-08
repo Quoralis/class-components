@@ -1,6 +1,6 @@
 import { type ChangeEvent } from 'react';
 import styles from './SearchBar.module.scss';
-import ThemeSwitcher from './ThemeSwither';
+import ThemeSwitcher from './ThemeSwitcher';
 import { useTheme } from '../../hooks/useTheme.tsx';
 
 interface Props {
