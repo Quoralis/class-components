@@ -1,22 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CardCharacter from './CardsCharacter';
 import Pagination from './Pagination';
 import styles from './ResultsFieldFn.module.scss';
 import { useSearchParams } from 'react-router-dom';
-import { useTheme } from '../../hooks/useTheme.tsx';
 import { useGetCharactersQuery } from '../../store/characterApi.ts';
 import { filterCharacterResponse } from '../../utils/filterCharacterResponse.ts';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../store/store.ts';
 
-interface Props {
-  search: string;
-  triggerSearch: boolean;
-}
-
-function ResultsField(props: Props) {
-  const { theme: actualTheme } = useTheme();
-  const [throwError, setThrowError] = useState(false);
+function ResultsField() {
   const [currentPage, setCurrentPage] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const searchFromStore = useSelector(
+    (state: RootState) => state.search.search
+  );
 
   function onPageChange(currentPage: number) {
     setCurrentPage(currentPage);
@@ -26,19 +24,18 @@ function ResultsField(props: Props) {
   const pageFromUrl = parseInt(searchParams.get('page') || '1', 10);
   const validPage =
     !isNaN(pageFromUrl) && pageFromUrl > 0 ? pageFromUrl - 1 : 0;
+
+  useEffect(() => {
+    setCurrentPage(validPage);
+  }, [validPage]);
+
   const { data, isLoading, isFetching, error } =
     useGetCharactersQuery(validPage);
+
   if (!data) return null;
 
-  const searchData = filterCharacterResponse(data, props.search);
+  const searchData = filterCharacterResponse(data, searchFromStore);
 
-  const throwErr = () => {
-    setThrowError(true);
-  };
-
-  if (throwError) {
-    throw new Error('Render error');
-  }
   if (error) return <div>{'Error loading'}</div>;
 
   return (
@@ -58,12 +55,6 @@ function ResultsField(props: Props) {
         totalPages={searchData.page.totalPages}
         onPageChange={onPageChange}
       />
-      <button
-        className={actualTheme === 'dark' ? 'buttonDark' : ''}
-        onClick={throwErr}
-      >
-        Throw Error
-      </button>
     </div>
   );
 }

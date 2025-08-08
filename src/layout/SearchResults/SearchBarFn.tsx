@@ -1,40 +1,67 @@
-import { type ChangeEvent } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import styles from './SearchBar.module.scss';
 import ThemeSwitcher from './ThemeSwitcher';
 import { useTheme } from '../../hooks/useTheme.tsx';
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '../../store/store.ts';
+import { setSearchTerm } from '../../store/searchSlice.ts';
 
-interface Props {
-  search: string;
-  onSearch: (query: string) => void;
-}
-
-function SearchBarFn(props: Props) {
+function SearchBarFn() {
   const { theme: actualTheme } = useTheme();
-  const handleClick = () => {
-    const clearSearch = props.search.trim();
-    if (clearSearch) {
-      localStorage.setItem('search', clearSearch);
-    }
-    props.onSearch(clearSearch);
-  };
+  const dispatch = useDispatch();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    props.onSearch(e.target.value);
+  const searchFromStore = useSelector(
+    (state: RootState) => state.search.search
+  );
+
+  const [inputValue, setInputValue] = useState(searchFromStore);
+
+  useEffect(() => {
+    setInputValue(searchFromStore);
+  }, [searchFromStore]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('search');
+    if (saved && saved !== searchFromStore) {
+      dispatch(setSearchTerm(saved));
+    }
+  }, [dispatch, searchFromStore]);
+
+  const inputClass = useMemo(
+    () =>
+      `${styles['search-bar__input']} ${
+        actualTheme === 'dark' ? styles['search-bar__inputDark'] : ''
+      }`,
+    [actualTheme]
+  );
+
+  const buttonClass = useMemo(
+    () =>
+      `${styles['search-bar__button']} ${
+        actualTheme === 'dark' ? styles['buttonDark'] : ''
+      }`,
+    [actualTheme]
+  );
+
+  const handleSearch = () => {
+    localStorage.setItem('search', inputValue);
+    dispatch(setSearchTerm(inputValue));
   };
 
   return (
-    <div key="searchBar" className={styles['search-bar']}>
+    <div className={styles['search-bar']}>
       <input
         type="search"
-        onChange={handleChange}
-        value={props.search}
-        className={`search-bar__input ${actualTheme === 'dark' ? 'search-bar__inputDark' : ''}`}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') handleSearch();
+        }}
+        className={inputClass}
         placeholder="Enter name character.."
+        aria-label="Search character"
       />
-      <button
-        className={`styles${['search-bar__button']} ${actualTheme === 'dark' ? 'buttonDark' : ''}`}
-        onClick={handleClick}
-      >
+      <button type="button" className={buttonClass} onClick={handleSearch}>
         Search
       </button>
       <ThemeSwitcher />
