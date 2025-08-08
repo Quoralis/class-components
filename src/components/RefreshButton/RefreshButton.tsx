@@ -1,11 +1,18 @@
 import styles from './Refresh.module.scss';
+import { useDispatch } from 'react-redux';
+import { characterApi } from '../../store/characterApi.ts';
 
 export function RefreshButton() {
+  const dispatch = useDispatch();
+  const refresh = () => {
+    dispatch(characterApi.util.invalidateTags([{ type: 'Characters' }]));
+  };
+
   return (
     <button
       className={styles.refreshButton}
       onClick={() => {
-        console.log('Refresh button clicked');
+        refresh();
       }}
     >
       <svg

@@ -7,6 +7,7 @@ import type {
 export const characterApi = createApi({
   reducerPath: 'characterApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://stapi.co/api/v1/rest/' }),
+  tagTypes: ['Characters'],
   endpoints: (builder) => ({
     getCharacters: builder.query<
       CharacterSearchResponse,
@@ -19,6 +20,7 @@ export const characterApi = createApi({
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       }),
+      providesTags: ['Characters'],
     }),
 
     getCharacterById: builder.query<CharacterByIdResponse, string>({
