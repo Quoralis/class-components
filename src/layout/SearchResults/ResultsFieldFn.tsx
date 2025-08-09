@@ -15,6 +15,10 @@ function ResultsField() {
     (state: RootState) => state.search.search
   );
 
+  const { isLoading, isError } = useSelector(
+    (state: RootState) => state.status
+  );
+
   function onPageChange(currentPage: number) {
     setCurrentPage(currentPage);
     setSearchParams({ page: String(currentPage + 1) });
@@ -39,17 +43,17 @@ function ResultsField() {
   useEffect(() => {
     setCurrentPage(validPage);
   }, [validPage]);
-  const { data, isLoading, isFetching, error } = useGetCharactersQuery({
+  const { data } = useGetCharactersQuery({
     page: validPage,
     name: searchFromStore,
   });
-  if (error) return <div>{'Error loading'}</div>;
+  if (isError) return <div>Error loading</div>;
 
   if (!data) return null;
 
   return (
     <div data-testid="results" className={styles['container__results']}>
-      {(isLoading || isFetching) && (
+      {isLoading && (
         <div className={styles.loadingOn}>
           <div className={styles.spinner}></div>
         </div>
