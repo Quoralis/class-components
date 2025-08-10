@@ -3,7 +3,7 @@ import { characterApi } from './characterApi.ts';
 
 interface StatusState {
   isLoading: boolean;
-  isError: null | boolean;
+  isError: string | null;
 }
 
 const initialState: StatusState = { isLoading: false, isError: null };
@@ -31,9 +31,9 @@ const statusSlice = createSlice({
     );
     builder.addMatcher(
       characterApi.endpoints.getCharacters.matchRejected,
-      (state) => {
+      (state, action) => {
         state.isLoading = false;
-        state.isError = true;
+        state.isError = action.error?.message ?? action.error?.name ?? null;
       }
     );
     builder.addMatcher(
@@ -50,9 +50,9 @@ const statusSlice = createSlice({
     );
     builder.addMatcher(
       characterApi.endpoints.getCharacterById.matchRejected,
-      (state) => {
+      (state, action) => {
         state.isLoading = false;
-        state.isError = true;
+        state.isError = action.error?.message ?? action.error?.name ?? null;
       }
     );
   },

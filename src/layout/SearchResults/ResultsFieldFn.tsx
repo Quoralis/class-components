@@ -47,7 +47,7 @@ function ResultsField() {
     page: validPage,
     name: searchFromStore,
   });
-  if (isError) return <div>Error loading</div>;
+  if (isError) return <div>{isError}</div>;
 
   if (!data) return null;
 
