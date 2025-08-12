@@ -1,22 +1,26 @@
-import { describe, expect, test, vi, afterEach } from 'vitest';
+import { afterEach, describe, expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from '../store/store';
 
-const hookPath = '../hooks/useCharacterById';
+const apiPath = '../store/characterApi';
 
-const renderWithRouter = async (route = '/details/123') => {
+async function renderWithRouter(route = '/details/123') {
   const { default: ItemDetails } = await import(
     '../layout/SearchResults/ItemDetails'
   );
   render(
-    <MemoryRouter initialEntries={[route]}>
-      <Routes>
-        <Route path="/details/:id" element={<ItemDetails />} />
-        <Route path="/details/" element={<ItemDetails />} />
-      </Routes>
-    </MemoryRouter>
+    <Provider store={store}>
+      <MemoryRouter initialEntries={[route]}>
+        <Routes>
+          <Route path="/details/:id" element={<ItemDetails />} />
+          <Route path="/details/" element={<ItemDetails />} />
+        </Routes>
+      </MemoryRouter>
+    </Provider>
   );
-};
+}
 
 describe('Testing ItemDetails', () => {
   afterEach(() => {
@@ -25,17 +29,19 @@ describe('Testing ItemDetails', () => {
   });
 
   test('renders character card', async () => {
-    vi.doMock(hookPath, () => ({
+    vi.doMock(apiPath, () => ({
       __esModule: true,
-      default: () => ({
-        character: {
-          name: 'Stas',
-          uid: '123',
-          species: 'Human',
-          homeWorld: 'Earth',
+      useGetCharacterByIdQuery: (uid: string) => ({
+        data: {
+          character: {
+            uid,
+            name: 'Stas',
+            species: 'Human',
+            homeWorld: 'Earth',
+          },
         },
-        loading: false,
-        error: null,
+        isLoading: false,
+        error: undefined,
       }),
     }));
     await renderWithRouter('/details/123');
@@ -46,12 +52,12 @@ describe('Testing ItemDetails', () => {
   });
 
   test('renders Missing UID if id param is missing', async () => {
-    vi.doMock(hookPath, () => ({
+    vi.doMock(apiPath, () => ({
       __esModule: true,
-      default: () => ({
-        character: null,
-        loading: false,
-        error: null,
+      useGetCharacterByIdQuery: () => ({
+        data: undefined,
+        isLoading: false,
+        error: undefined,
       }),
     }));
     await renderWithRouter('/details/');
@@ -59,12 +65,12 @@ describe('Testing ItemDetails', () => {
   });
 
   test('renders Loading... when loading', async () => {
-    vi.doMock(hookPath, () => ({
+    vi.doMock(apiPath, () => ({
       __esModule: true,
-      default: () => ({
-        character: null,
-        loading: true,
-        error: null,
+      useGetCharacterByIdQuery: () => ({
+        data: undefined,
+        isLoading: true,
+        error: undefined,
       }),
     }));
     await renderWithRouter('/details/123');

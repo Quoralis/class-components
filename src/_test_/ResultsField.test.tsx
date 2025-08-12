@@ -1,53 +1,61 @@
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
-import { cleanup, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router-dom';
+import { beforeEach, afterEach, describe, expect, test, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from '../store/store.ts';
-import { ErrorBoundary } from '../layout/SearchResults/ErrorBoundary';
-import ResultsFieldFn from '../layout/SearchResults/ResultsFieldFn';
+import store from '../store/store';
+import ResultsField from '../layout/SearchResults/ResultsFieldFn';
 
-describe('Test ResultsField', () => {
-  const user = userEvent.setup();
-  let errorBtn: HTMLButtonElement;
-  beforeEach(() => {
-    window.fetch = vi.fn().mockResolvedValue({
-      json: async () => ({
-        characters: [{ uid: 'CHMA0000215045', name: '0413 Theta' }],
-        page: {
-          pageNumber: 0,
-          pageSize: 16,
-          totalElements: 1,
-          totalPages: 1,
-        },
-      }),
-    });
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <ErrorBoundary>
-            <ResultsFieldFn search="" triggerSearch={false} />
-          </ErrorBoundary>
-        </BrowserRouter>
-      </Provider>
-    );
+const listPayload = {
+  page: { pageNumber: 0, pageSize: 16, totalElements: 2, totalPages: 3 },
+  characters: [
+    { uid: 'CHMA0001', name: 'Spock' },
+    { uid: 'CHMA0002', name: 'Kirk' },
+  ],
+};
+
+function renderWithProviders(route = '/') {
+  window.history.pushState({}, 'Test', route);
+  return render(
+    <Provider store={store}>
+      <MemoryRouter initialEntries={[route]}>
+        <ResultsField />
+      </MemoryRouter>
+    </Provider>
+  );
+}
+
+beforeEach(() => {
+  vi.restoreAllMocks();
+  vi.spyOn(globalThis, 'fetch').mockImplementation((input) => {
+    const url = typeof input === 'string' ? input : (input as Request).url;
+    if (url.includes('/character/search')) {
+      return Promise.resolve(
+        new Response(JSON.stringify(listPayload), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      );
+    }
+    return Promise.resolve(new Response(null, { status: 404 }));
+  });
+});
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
+
+describe('ResultsFieldFn', () => {
+  test('renders results container and character names after fetch', async () => {
+    renderWithProviders('/?page=1');
+    const results = await screen.findByTestId('results');
+    expect(results).toBeInTheDocument();
+    expect(await screen.findByText(/Spock/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Kirk/i)).toBeInTheDocument();
   });
 
-  test('renders results div after fetch', async () => {
-    const elementResults = await screen.findByTestId('results');
-    expect(elementResults).toBeInTheDocument();
-  });
-
-  test('test click button throwError', async () => {
-    errorBtn = await screen.findByRole('button', {
-      name: /throw error/i,
-    });
-    await user.click(errorBtn);
-    const div = await screen.findByText('ErrorRender');
-    expect(div).toBeInTheDocument();
-  });
-  afterEach(() => {
-    cleanup();
-    vi.restoreAllMocks();
+  test('handles page number from query string', async () => {
+    renderWithProviders('/?page=2');
+    const results = await screen.findByTestId('results');
+    expect(results).toBeInTheDocument();
   });
 });

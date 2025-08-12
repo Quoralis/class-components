@@ -1,19 +1,21 @@
 import { useParams, useSearchParams, Link } from 'react-router-dom';
-import useCharacterById from '../../hooks/useCharacterById';
 import styles from './ItemDetails.module.scss';
+import { useGetCharacterByIdQuery } from '../../store/characterApi.ts';
 
 export default function ItemDetails() {
   const { id } = useParams();
   const [searchParams] = useSearchParams();
   const query = searchParams.toString();
 
-  const { character, loading, error } = useCharacterById(id ?? '');
+  const { data, isLoading, error } = useGetCharacterByIdQuery(id ?? '', {
+    skip: !id,
+  });
   if (!id) {
     return <div>Missing UID</div>;
   }
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-  if (!character)
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{'Error loading'}</div>;
+  if (!data)
     return (
       <div>
         <Link to={`/?${query}`}>
@@ -25,15 +27,15 @@ export default function ItemDetails() {
 
   return (
     <div className={styles['container_details']}>
-      <h2>{character.name}</h2>
+      <h2>{data.character.name}</h2>
       <p>
-        <strong>UID:</strong> {character.uid || 'unknown'}
+        <strong>UID:</strong> {data.character.uid || 'unknown'}
       </p>
       <p>
-        <strong>Species:</strong> {character.species || 'unknown'}
+        <strong>Species:</strong> {data.character.species || 'unknown'}
       </p>
       <p>
-        <strong>Home World:</strong> {character.homeWorld || 'unknown'}
+        <strong>Home World:</strong> {data.character.homeWorld || 'unknown'}
       </p>
 
       <Link to={`/?${query}`}>
