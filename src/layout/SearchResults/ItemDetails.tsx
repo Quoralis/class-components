@@ -1,6 +1,6 @@
 import { useParams, useSearchParams, Link } from 'react-router-dom';
 import styles from './ItemDetails.module.scss';
-import { useGetCharacterByIdQuery } from '../../store/characterApi.ts';
+import { useGetCharacterByIdQuery } from '../../store/characterApi';
 
 export default function ItemDetails() {
   const { id } = useParams();

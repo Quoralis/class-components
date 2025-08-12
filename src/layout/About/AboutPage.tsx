@@ -1,5 +1,5 @@
 import styles from './AboutPage.module.scss';
-import rsLogo from '../../assets/rss-logo.svg';
+import rsLogo from '../../app/rss-logo.svg';
 import { appDescription, features, author } from './aboutContent';
 
 function AboutPage() {

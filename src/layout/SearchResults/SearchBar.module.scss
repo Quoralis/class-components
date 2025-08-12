@@ -4,7 +4,7 @@
   margin-bottom: 1em;
   justify-content: center;
 
-  input {
+  .wrapper input {
     font-size: 0.8em;
     flex: 1;
     width: 80%;
@@ -20,7 +20,7 @@
   }
 }
 
-:global .search-bar__inputDark {
+.wrapper :global .search-bar__inputDark {
   color: #fff;
   background: linear-gradient(135deg, #2c2c39 70%, #363e6c 100%);
 
