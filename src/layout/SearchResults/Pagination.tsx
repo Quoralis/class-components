@@ -1,5 +1,5 @@
 import styles from './Pagination.module.scss';
-import { useTheme } from '../../hooks/useTheme.tsx';
+import { useTheme } from '../../hooks/useTheme';
 
 interface PaginationProps {
   currentPage: number;

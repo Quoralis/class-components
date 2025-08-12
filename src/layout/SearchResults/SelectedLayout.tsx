@@ -2,9 +2,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { unSelectCards } from '../../store/selectSlice';
 import styles from './SelectedLayout.module.scss';
-import { transformToCSV } from '../../utils/transformToCSV.ts';
+import { transformToCSV } from '../../utils/transformToCSV';
 import { useState } from 'react';
-import { useTheme } from '../../hooks/useTheme.tsx';
+import { useTheme } from '../../hooks/useTheme';
 
 function SelectedLayout() {
   const checkBox = useSelector((state: RootState) => state.selector.cards);

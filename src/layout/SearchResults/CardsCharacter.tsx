@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { addCards, removeCards } from '../../store/selectSlice';
-import { useTheme } from '../../hooks/useTheme.tsx';
+import { useTheme } from '../../hooks/useTheme';
 import type { CharacterDataResponse } from '../../store/types/types.ts';
 
 interface Props {

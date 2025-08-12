@@ -3,7 +3,7 @@ import CardCharacter from './CardsCharacter';
 import Pagination from './Pagination';
 import styles from './ResultsFieldFn.module.scss';
 import { useSearchParams } from 'react-router-dom';
-import { useGetCharactersQuery } from '../../store/characterApi.ts';
+import { useGetCharactersQuery } from '../../store/characterApi';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../store/store.ts';
 

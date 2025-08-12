@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import styles from './SearchBar.module.scss';
 import ThemeSwitcher from './ThemeSwitcher';
-import { useTheme } from '../../hooks/useTheme.tsx';
+import { useTheme } from '../../hooks/useTheme';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../store/store.ts';
-import { setSearchTerm } from '../../store/searchSlice.ts';
+import { setSearchTerm } from '../../store/searchSlice';
 
 function SearchBarFn() {
   const { theme: actualTheme } = useTheme();

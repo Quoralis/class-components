@@ -1,5 +1,5 @@
 import styles from './ThemeSwitcher.module.scss';
-import { useTheme } from '../../hooks/useTheme.tsx';
+import { useTheme } from '../../hooks/useTheme';
 
 const ThemeSwitcher = () => {
   const { theme: actualTheme, handleTheme } = useTheme();

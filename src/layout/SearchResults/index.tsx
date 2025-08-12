@@ -1,7 +1,7 @@
-import SearchBarFn from './SearchBarFn.tsx';
-import ResultsFieldFn from './ResultsFieldFn.tsx';
-import { ErrorBoundary } from './ErrorBoundary.tsx';
-import SelectedLayout from './SelectedLayout.tsx';
+import SearchBarFn from './SearchBarFn';
+import ResultsFieldFn from './ResultsFieldFn';
+import { ErrorBoundary } from './ErrorBoundary';
+import SelectedLayout from './SelectedLayout';
 
 function SearchPage() {
   return (
