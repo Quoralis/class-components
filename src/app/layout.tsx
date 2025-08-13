@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import styles from './layout.module.scss';
 
 export const metadata: Metadata = {
   title: 'Star Trek Characters Search',
@@ -13,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={styles.body}>
         <div id="root">{children}</div>
       </body>
     </html>

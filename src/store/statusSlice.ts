@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { characterApi } from './characterApi.ts';
+import { characterApi } from './characterApi';
 
 interface StatusState {
   isLoading: boolean;

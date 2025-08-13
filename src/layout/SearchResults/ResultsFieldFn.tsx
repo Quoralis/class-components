@@ -43,6 +43,7 @@ function ResultsField() {
   useEffect(() => {
     setCurrentPage(validPage);
   }, [validPage]);
+
   const { data } = useGetCharactersQuery({
     page: validPage,
     name: searchFromStore,
