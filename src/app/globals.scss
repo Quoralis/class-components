@@ -1,0 +1,39 @@
+:root {
+  --btn-bg: #0077cc;
+  --btn-text: #ffffff;
+  --btn-bg-hover: #005fa3;
+  --btn-text-hover: #ffffff;
+  --page-bg: #ffffff;
+  --page-text: #000000;
+}
+
+.dark {
+  --btn-bg: #d7e3ed;
+  --btn-text: #005fa3;
+  --btn-bg-hover: #c6d6e4;
+  --btn-text-hover: #004a80;
+  --page-bg: #121212;
+  --page-text: #eaeaea;
+}
+
+body {
+  background: var(--page-bg);
+  color: var(--page-text);
+}
+
+button {
+  font-size: 0.9em;
+  padding: 0.3em 1.5em;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+button:hover {
+  background-color: var(--btn-bg-hover);
+  color: var(--btn-text-hover);
+}
