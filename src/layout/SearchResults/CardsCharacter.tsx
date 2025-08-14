@@ -5,14 +5,18 @@ import type { CharacterDataResponse } from '../../store/types/types.ts';
 
 interface Props {
   items: CharacterDataResponse[];
+  query: { [key: string]: string | string[] | undefined };
 }
 
-export default function CardCharacter({ items }: Props) {
+export default function CardCharacter({ items, query }: Props) {
   return (
     <ul className={styles['card-list']}>
       {items.map((item) => (
         <li key={item.uid} className={`${styles.card}`}>
-          <Link href={`/details/${item.uid}`} className={styles['card-link']}>
+          <Link
+            href={{ pathname: `/details/${item.uid}`, query }}
+            className={styles['card-link']}
+          >
             <h3>{item.name}</h3>
             <table>
               <tbody>
