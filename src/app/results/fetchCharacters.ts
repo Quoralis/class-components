@@ -1,4 +1,7 @@
-import type { CharacterSearchResponse } from '../../store/types/types.ts';
+import type {
+  CharacterByIdResponse,
+  CharacterSearchResponse,
+} from '../../store/types/types.ts';
 
 export async function fetchCharacters(
   page: number,
@@ -14,4 +17,14 @@ export async function fetchCharacters(
   if (!res.ok) throw new Error(`STAPI error ${res.status}`);
   const data = await res.json();
   return data as CharacterSearchResponse;
+}
+
+export async function fetchCharactersById(
+  uid: string
+): Promise<CharacterByIdResponse> {
+  const res = await fetch(`https://stapi.co/api/v1/rest/character/?uid=${uid}`);
+
+  if (!res.ok) throw new Error(`STAPI error ${res.status}`);
+  const data = await res.json();
+  return data as CharacterByIdResponse;
 }
