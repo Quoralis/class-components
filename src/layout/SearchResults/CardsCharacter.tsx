@@ -1,6 +1,7 @@
 import styles from './CardCharacter.module.scss';
 import Link from 'next/link';
 import type { CharacterDataResponse } from '../../store/types/types.ts';
+import CheckBox from '../../components/Checkbox/CheckBox';
 
 interface Props {
   items: CharacterDataResponse[];
@@ -11,21 +12,21 @@ const getFirst = (v?: string | string[]) =>
   Array.isArray(v) ? v[0] : (v ?? '');
 
 export default function CardCharacter({ items, query }: Props) {
+  const search = getFirst(query.search);
+  const page = getFirst(query.page);
   return (
     <ul className={styles['card-list']}>
       {items.map((item) => {
-        // соберём новый query из текущего + id
         const params = new URLSearchParams();
-        const search = getFirst(query.search);
-        const page = getFirst(query.page);
         if (search) params.set('search', search);
         if (page) params.set('page', page);
         params.set('id', item.uid); // ← добавляем id
 
         return (
           <li key={item.uid} className={styles.card}>
+            <CheckBox item={item} />
             <Link
-              href={`?${params.toString()}`} // остаёмся на текущем пути, добавляем ?id=...
+              href={`?${params.toString()}`}
               scroll={false}
               className={styles['card-link']}
             >
