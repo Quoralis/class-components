@@ -4,6 +4,7 @@ import CardCharacter from '../../../layout/SearchResults/CardsCharacter';
 import { SearchBar } from '../../../components/SearchBar/SearchBar';
 import Pagination from '../../../components/Pagination/Pagination';
 import Link from 'next/link';
+import SelectionBar from '../../../components/SelectionBar/SelectionBar';
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 export const dynamic = 'force-dynamic';
@@ -30,7 +31,6 @@ export default async function Page(props: { searchParams: SearchParams }) {
       </div>
     );
   }
-
   return (
     <div className={styles.container}>
       <SearchBar />
@@ -40,6 +40,7 @@ export default async function Page(props: { searchParams: SearchParams }) {
           currentPage={Number(currentPage)}
           totalPages={data.page.totalPages}
         />
+        <SelectionBar />
       </div>
     </div>
   );

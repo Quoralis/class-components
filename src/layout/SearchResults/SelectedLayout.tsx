@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { unSelectCards } from '../../store/selectSlice';
-import styles from './SelectedLayout.module.scss';
+import styles from '../../components/SelectionBar/SelectedLayout.module.scss';
 import { transformToCSV } from '../../utils/transformToCSV';
 import { useState } from 'react';
 import { useTheme } from '../../hooks/useTheme';

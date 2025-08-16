@@ -1,4 +1,8 @@
-.selected-layout {
+.results__wrapper {
+  display: flex;
+}
+
+.selected_layout {
   display: flex;
   font-size: 0.8em;
   justify-content: center;
@@ -6,11 +10,11 @@
   border-radius: 6px;
   opacity: 80%;
 }
-.selected-layout-dark {
+.selected_layout-dark {
   color: #fff;
   background: linear-gradient(135deg, #2c2c39 70%, #363e6c 100%);
 }
-.btn-action {
+.btn_action {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -31,11 +35,11 @@
   text-decoration: none;
 }
 
-.btn-action:hover {
+.btn_action:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
 }
 
-.selected-count {
+.selected_count {
   display: flex;
   font-weight: bold;
   align-items: center;
