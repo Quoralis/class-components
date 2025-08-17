@@ -16,7 +16,9 @@
   "Nav": {
     "main": "Početna",
     "search": "Pretraga",
-    "about": "O aplikaciji"
+    "about": "O aplikaciji",
+    "label": "Jezik",
+    "locale": "{locale, select, en {English} sr {Serbian} other {Unknown}}"
   },
   "Search": {
     "placeholder": "Unesite ime lika..."

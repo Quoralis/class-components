@@ -16,7 +16,9 @@
   "Nav": {
     "main": "Main",
     "search": "Search",
-    "about": "About"
+    "about": "About",
+    "label": "Language",
+    "locale": "{locale, select, en {English} sr {Serbian} other {Unknown}}"
   },
   "Search": {
     "placeholder": "Enter character name..."
