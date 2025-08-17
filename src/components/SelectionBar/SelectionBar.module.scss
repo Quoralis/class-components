@@ -1,5 +1,6 @@
 .results__wrapper {
   display: flex;
+  justify-content: center;
 }
 
 .selected_layout {
@@ -49,4 +50,8 @@
 }
 .selected-count-dark {
   color: #fff;
+}
+
+.display_none {
+  display: none;
 }
