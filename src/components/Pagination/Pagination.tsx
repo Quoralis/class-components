@@ -1,6 +1,7 @@
 'use client';
 import styles from './Pagination.module.scss';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 interface PaginationProps {
   currentPage: number;
@@ -17,6 +18,7 @@ function Pagination(props: PaginationProps) {
     params.set('page', String(page));
     router.push(`${pathname}?${params.toString()}`);
   };
+  const t = useTranslations();
 
   return (
     <div key={'pagination'} className={styles['pagination']}>
@@ -24,16 +26,16 @@ function Pagination(props: PaginationProps) {
         className={`${props.currentPage === 1 ? styles.disable : ''}`}
         onClick={() => setPage(props.currentPage - 1)}
       >
-        « Prev
+        {t('Buttons.prev')}
       </button>
       <span>
-        Page {props.currentPage} of {props.totalPages}
+        {t('Texts.page')} {props.currentPage} of {props.totalPages}
       </span>
       <button
         className={`${props.currentPage === props.totalPages ? styles.disable : ''} `}
         onClick={() => setPage(props.currentPage + 1)}
       >
-        Next »
+        {t('Buttons.next')} »
       </button>
     </div>
   );

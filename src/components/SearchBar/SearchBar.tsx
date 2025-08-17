@@ -3,6 +3,7 @@
 import styles from './SearchBar.module.scss';
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 export function SearchBar() {
   const router = useRouter();
@@ -19,6 +20,7 @@ export function SearchBar() {
     params.set('search', actualSearch ?? '');
     router.push(`?${params}`);
   };
+  const t = useTranslations();
 
   return (
     <div className={styles['search-bar']}>
@@ -27,14 +29,11 @@ export function SearchBar() {
           name="search"
           type="search"
           defaultValue={search}
-          // onKeyDown={(e) => {
-          //   if (e.key === 'Enter') handleSearch();
-          // }}
           className={'inputClass'}
-          placeholder="Enter name character.."
+          placeholder={t('Search.placeholder')}
           aria-label="Search character"
         />
-        <button type="submit">Search</button>
+        <button type="submit">{t('Buttons.search')}</button>
         <ThemeSwitcher />
       </form>
     </div>

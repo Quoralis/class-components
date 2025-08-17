@@ -2,6 +2,7 @@ import styles from './CardCharacter.module.scss';
 import Link from 'next/link';
 import type { CharacterDataResponse } from '../../store/types/types.ts';
 import CheckBox from '../../components/Checkbox/CheckBox';
+import { getTranslations } from 'next-intl/server';
 
 interface Props {
   items: CharacterDataResponse[];
@@ -11,9 +12,10 @@ interface Props {
 const getFirst = (v?: string | string[]) =>
   Array.isArray(v) ? v[0] : (v ?? '');
 
-export default function CardCharacter({ items, query }: Props) {
+export default async function CardCharacter({ items, query }: Props) {
   const search = getFirst(query.search);
   const page = getFirst(query.page);
+  const t = await getTranslations('Cards');
   return (
     <ul className={styles['card-list']}>
       {items.map((item) => {
@@ -35,13 +37,13 @@ export default function CardCharacter({ items, query }: Props) {
                 <tbody>
                   <tr>
                     <td>
-                      <strong>Gender:</strong>
+                      <strong>{t('gender')}:</strong>
                     </td>
                     <td>{item.gender ?? 'unknown'}</td>
                   </tr>
                   <tr>
                     <td>
-                      <strong>Birth Date:</strong>
+                      <strong>{t('birthDate')}:</strong>
                     </td>
                     <td>{item.birthDate ?? 'unknown'}</td>
                   </tr>

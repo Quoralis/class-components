@@ -1,15 +1,17 @@
 import styles from './page.module.scss';
 import { fetchCharacters } from '../fetchCharacters';
-import CardCharacter from '../../../layout/SearchResults/CardsCharacter';
-import { SearchBar } from '../../../components/SearchBar/SearchBar';
-import Pagination from '../../../components/Pagination/Pagination';
+import CardCharacter from '../../../../layout/SearchResults/CardsCharacter';
+import { SearchBar } from '../../../../components/SearchBar/SearchBar';
+import Pagination from '../../../../components/Pagination/Pagination';
 import Link from 'next/link';
-import SelectionBar from '../../../components/SelectionBar/SelectionBar';
+import SelectionBar from '../../../../components/SelectionBar/SelectionBar';
+import { getTranslations } from 'next-intl/server';
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 export const dynamic = 'force-dynamic';
 
 export default async function Page(props: { searchParams: SearchParams }) {
+  const t = await getTranslations('Texts');
   const query = await props.searchParams;
   const currentPage = Array.isArray(query.page)
     ? query.page[0]
@@ -27,7 +29,7 @@ export default async function Page(props: { searchParams: SearchParams }) {
         <Link href={'/results?search'}>
           <button>X</button>
         </Link>
-        Characters not found
+        {t('charactersNotFound')}
       </div>
     );
   }
