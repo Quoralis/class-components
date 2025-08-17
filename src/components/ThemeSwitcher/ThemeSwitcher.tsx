@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './ThemeSwitcher.module.scss';
 import { useTheme } from '../../hooks/useTheme';
 

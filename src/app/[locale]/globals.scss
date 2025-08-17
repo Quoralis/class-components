@@ -5,6 +5,9 @@
   --btn-text-hover: #ffffff;
   --page-bg: #ffffff;
   --page-text: #000000;
+  --card-bg: #ffffff;
+  --card-border-color: 1px solid #e5e7eb;
+  --card-shadow: 0 3px 18px rgba(0, 0, 0, 0.06);
 }
 
 .dark {
@@ -14,6 +17,9 @@
   --btn-text-hover: #004a80;
   --page-bg: #121212;
   --page-text: #eaeaea;
+  --card-bg: linear-gradient(135deg, #23232e 60%, #202435 100%);
+  --card-border-color: 1px solid #3e4157;
+  --card-shadow: 0 4px 24px rgba(60, 70, 150, 0.12);
 }
 
 body {
@@ -30,19 +36,25 @@ button {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 button:hover {
   background-color: var(--btn-bg-hover);
   color: var(--btn-text-hover);
 }
+
 .welcomeMessage {
   font-size: 1.8rem;
   font-weight: bold;
   color: #ecde9d;
   text-align: center;
   margin-top: 2rem;
+}
+
+li {
+  background: var(--card-bg);
+  border: var(--card-border-color);
+  color: var(--page-text);
+  box-shadow: var(--card-shadow);
 }

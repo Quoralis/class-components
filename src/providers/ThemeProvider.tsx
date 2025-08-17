@@ -1,28 +1,60 @@
 'use client';
 
-import { type ReactNode, useCallback, useState } from 'react';
-import { createContext } from 'react';
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+
+type Theme = 'light' | 'dark';
 
 export interface ThemeContextType {
-  theme: 'light' | 'dark';
+  theme: Theme;
   handleTheme: () => void;
 }
 
-const initialTheme: ThemeContextType = {
+export const ThemeContext = createContext<ThemeContextType>({
   theme: 'light',
   handleTheme: () => {},
-};
-export const ThemeContext = createContext<ThemeContextType>(initialTheme);
+});
 
-export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<Theme>('light');
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('theme') as Theme | null;
+      const initial: Theme =
+        saved === 'light' || saved === 'dark'
+          ? saved
+          : window.matchMedia?.('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
 
-  const handleThemeChange = useCallback(() => {
+      setTheme(initial);
+      document.documentElement.classList.toggle('dark', initial === 'dark');
+    } catch {
+      document.documentElement.classList.toggle('dark', false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {
+      console.error();
+    }
+  }, [theme]);
+
+  const handleTheme = useCallback(() => {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   }, []);
+
+  const value = useMemo(() => ({ theme, handleTheme }), [theme, handleTheme]);
+
   return (
-    <ThemeContext.Provider value={{ theme, handleTheme: handleThemeChange }}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
-};
+}
