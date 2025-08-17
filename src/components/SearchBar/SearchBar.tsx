@@ -23,13 +23,13 @@ export function SearchBar() {
   const t = useTranslations();
 
   return (
-    <div className={styles['search-bar']}>
-      <form onSubmit={onSubmit}>
+    <div>
+      <form onSubmit={onSubmit} className={styles.search_bar}>
         <input
           name="search"
           type="search"
           defaultValue={search}
-          className={'inputClass'}
+          className={styles.inputClass}
           placeholder={t('Search.placeholder')}
           aria-label="Search character"
         />

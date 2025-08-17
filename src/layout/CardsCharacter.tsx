@@ -1,7 +1,7 @@
 import styles from './CardCharacter.module.scss';
 import Link from 'next/link';
-import type { CharacterDataResponse } from '../../store/types/types.ts';
-import CheckBox from '../../components/Checkbox/CheckBox';
+import type { CharacterDataResponse } from '../store/types/types.ts';
+import CheckBox from '../components/Checkbox/CheckBox';
 import { getTranslations } from 'next-intl/server';
 
 interface Props {

@@ -1,10 +1,10 @@
-.search-bar {
+.search_bar {
   display: flex;
   gap: 1em;
   margin-bottom: 1em;
   justify-content: center;
 
-  .wrapper input {
+  .inputClass {
     font-size: 0.8em;
     flex: 1;
     width: 80%;

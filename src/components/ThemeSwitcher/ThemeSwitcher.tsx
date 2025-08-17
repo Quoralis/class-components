@@ -3,17 +3,22 @@ import { useTheme } from '../../hooks/useTheme';
 
 const ThemeSwitcher = () => {
   const { theme: actualTheme, handleTheme } = useTheme();
+  const checked = actualTheme === 'dark';
+
   return (
-    <div className={`form-check form-switch ${styles.switcherContainer}`}>
-      <input
-        className="form-check-input"
-        type="checkbox"
-        role="switch"
-        id="switchCheckDefault"
-        onChange={handleTheme}
-      />
-      <label className="form-check-label" htmlFor="switchCheckDefault">
-        {actualTheme === 'dark' ? 'Dark theme' : 'Light  theme'}
+    <div className={styles.switcher_container}>
+      <label className={styles.switch} htmlFor="themeSwitch">
+        <input
+          id="themeSwitch"
+          type="checkbox"
+          checked={checked}
+          onChange={handleTheme}
+          aria-label="Toggle theme"
+        />
+        <span className={styles.slider} aria-hidden="true" />
+        <span className={styles.labelText}>
+          {checked ? 'Dark theme' : 'Light theme'}
+        </span>
       </label>
     </div>
   );

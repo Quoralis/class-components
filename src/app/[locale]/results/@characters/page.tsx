@@ -1,6 +1,6 @@
 import styles from './page.module.scss';
 import { fetchCharacters } from '../fetchCharacters';
-import CardCharacter from '../../../../layout/SearchResults/CardsCharacter';
+import CardCharacter from '../../../../layout//CardsCharacter';
 import { SearchBar } from '../../../../components/SearchBar/SearchBar';
 import Pagination from '../../../../components/Pagination/Pagination';
 import Link from 'next/link';
