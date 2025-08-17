@@ -1,7 +1,8 @@
 import type {
   CharacterByIdResponse,
   CharacterSearchResponse,
-} from '../../store/types/types.ts';
+} from '../../../store/types/types';
+import { notFound } from 'next/navigation';
 
 export async function fetchCharacters(
   page: number,
@@ -13,6 +14,8 @@ export async function fetchCharacters(
       method: 'POST',
     }
   );
+
+  if (res.status === 404) return notFound();
 
   if (!res.ok) throw new Error(`STAPI error ${res.status}`);
   const data = await res.json();

@@ -55,5 +55,10 @@
     },
     "authorLabel": "Author:",
     "author": "Stanislav Tsibulskii (Quoralis)"
+  },
+  "NotFound": {
+    "title": "404 Page not found",
+    "desc": "The page you’re looking for doesn’t exist or has moved.",
+    "backHome": "Back to home"
   }
 }

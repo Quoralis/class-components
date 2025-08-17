@@ -55,5 +55,10 @@
     },
     "authorLabel": "Autor:",
     "author": "Stanislav Tsibulskii (Quoralis)"
+  },
+  "NotFound": {
+    "title": "Stranica nije pronađena",
+    "desc": "Stranica koju tražite ne postoji ili je pomerena.",
+    "backHome": "Nazad na početnu"
   }
 }
