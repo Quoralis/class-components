@@ -5,6 +5,7 @@ import styles from './NavMenu.module.scss';
 import { useLocale, useTranslations } from 'next-intl';
 import LocaleSwitcher from '../LocaleSwitcher/LocaleSwitcher';
 import { routing } from '../../i18n/routing';
+import { RefreshButton } from '../RefreshButton/RefreshButton';
 
 export function NavMenu() {
   const t = useTranslations('Nav');
@@ -21,6 +22,7 @@ export function NavMenu() {
           </option>
         ))}
       </LocaleSwitcher>
+      <RefreshButton />
     </nav>
   );
 }

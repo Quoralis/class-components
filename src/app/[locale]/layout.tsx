@@ -27,17 +27,19 @@ export default async function LocaleLayout({
     notFound();
   }
   return (
-    <html lang="en">
-      <ThemeProvider>
-        <body className={styles.body}>
-          <NextIntlClientProvider>
-            <main id="root">
-              <NavMenu />
-              <StoreProvider>{children}</StoreProvider>
-            </main>
-          </NextIntlClientProvider>
-        </body>
-      </ThemeProvider>
+    <html lang={locale}>
+      <body className={styles.body}>
+        <StoreProvider>
+          <ThemeProvider>
+            <NextIntlClientProvider /* locale={locale} messages={messages} */>
+              <main id="root">
+                <NavMenu />
+                {children}
+              </main>
+            </NextIntlClientProvider>
+          </ThemeProvider>
+        </StoreProvider>
+      </body>
     </html>
   );
 }
