@@ -1,0 +1,64 @@
+{
+  "Main": {
+    "welcome": "Welcome to the ultimate Star Trek character search!"
+  },
+  "Results": {
+    "p": "Here you can see all the items found for your query."
+  },
+  "Cards": {
+    "gender": "gender",
+    "birthDate": "Birth Date"
+  },
+  "Detail": {
+    "species": "Species",
+    "homeWorld": "Home World"
+  },
+  "Nav": {
+    "main": "Main",
+    "search": "Search",
+    "about": "About",
+    "label": "Language",
+    "locale": "{locale, select, en {English} sr {Serbian} other {Unknown}}"
+  },
+  "Search": {
+    "placeholder": "Enter character name..."
+  },
+  "Selection": {
+    "selected": "item(s) are selected",
+    "clear": "Clear selection",
+    "downloadCsv": "Download CSV"
+  },
+  "Texts": {
+    "charactersNotFound": "Characters not found",
+    "page": "Page",
+    "pageXofY": "Page {current} of {total}",
+    "loading": "Loading...",
+    "errorGeneric": "Something went wrong"
+  },
+  "Buttons": {
+    "back": "Back",
+    "next": "Next",
+    "prev": "Prev",
+    "search": "Search"
+  },
+  "About": {
+    "title": "About the Application",
+    "desc": "This React application allows users to search for Star Trek characters using the STAPI (Star Trek API). Results are paginated, and you can explore character details in a split-screen layout.",
+    "featuresTitle": "Features:",
+    "features": {
+      "search": "Search characters by name (case-insensitive substring match)",
+      "pagination": "Pagination with current page navigation and display",
+      "masterDetail": "Master-detail view: click on a character to view details in a side section",
+      "urlSync": "URL state sync: reflects the current page and selected character in the URL",
+      "loading": "Loading indicator and error fallback UI during fetch operations",
+      "aboutPage": "About page with author information and a link to the RS School React Course"
+    },
+    "authorLabel": "Author:",
+    "author": "Stanislav Tsibulskii (Quoralis)"
+  },
+  "NotFound": {
+    "title": "404 Page not found",
+    "desc": "The page you’re looking for doesn’t exist or has moved.",
+    "backHome": "Back to home"
+  }
+}

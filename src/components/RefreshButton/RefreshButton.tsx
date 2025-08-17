@@ -1,6 +1,8 @@
+'use client';
+
 import styles from './Refresh.module.scss';
 import { useDispatch } from 'react-redux';
-import { characterApi } from '../../store/characterApi.ts';
+import { characterApi } from '../../store/characterApi';
 
 export function RefreshButton() {
   const dispatch = useDispatch();

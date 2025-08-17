@@ -1,17 +1,27 @@
-import { NavLink } from 'react-router-dom';
+'use client';
+
+import { Link } from '@/i18n/navigation';
 import styles from './NavMenu.module.scss';
-import { navLinkClass } from '../../utils/navLinkClass.ts';
-import { RefreshButton } from '../RefreshButton/RefreshButton.tsx';
+import { useLocale, useTranslations } from 'next-intl';
+import LocaleSwitcher from '../LocaleSwitcher/LocaleSwitcher';
+import { routing } from '../../i18n/routing';
+import { RefreshButton } from '../RefreshButton/RefreshButton';
 
 export function NavMenu() {
+  const t = useTranslations('Nav');
+  const locale = useLocale();
   return (
     <nav className={styles.navbar}>
-      <NavLink to="/" end className={navLinkClass}>
-        Main
-      </NavLink>
-      <NavLink to="/about" className={navLinkClass} end>
-        About
-      </NavLink>
+      <Link href="/">{t('main')}</Link>
+      <Link href="/results">{t('search')}</Link>
+      <Link href="/about">{t('about')}</Link>
+      <LocaleSwitcher defaultValue={locale} label={t('label')}>
+        {routing.locales.map((cur) => (
+          <option key={cur} value={cur}>
+            {t('locale', { locale: cur })}
+          </option>
+        ))}
+      </LocaleSwitcher>
       <RefreshButton />
     </nav>
   );

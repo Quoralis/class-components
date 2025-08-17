@@ -1,0 +1,64 @@
+{
+  "Main": {
+    "welcome": "Dobrodošli u ultimativnu pretragu likova iz Star Treka!"
+  },
+  "Results": {
+    "p": "Ovde možete videti sve stavke pronađene za vaš upit."
+  },
+  "Cards": {
+    "gender": "Pol",
+    "birthDate": "Datum rođenja"
+  },
+  "Detail": {
+    "species": "Vrsta",
+    "homeWorld": "Matična planeta"
+  },
+  "Nav": {
+    "main": "Početna",
+    "search": "Pretraga",
+    "about": "O aplikaciji",
+    "label": "Jezik",
+    "locale": "{locale, select, en {English} sr {Serbian} other {Unknown}}"
+  },
+  "Search": {
+    "placeholder": "Unesite ime lika..."
+  },
+  "Selection": {
+    "selected": "{count, plural, one {Izabrana je {count} stavka} few {Izabrane su {count} stavke} other {Izabrano je {count} stavki}}",
+    "clear": "Poništi izbor",
+    "downloadCsv": "Preuzmi CSV"
+  },
+  "Texts": {
+    "charactersNotFound": "Likovi nisu pronađeni",
+    "page": "Stranica",
+    "pageXofY": "Stranica {current} od {total}",
+    "loading": "Učitavanje...",
+    "errorGeneric": "Nešto je pošlo naopako"
+  },
+  "Buttons": {
+    "back": "Nazad",
+    "next": "Sledeća",
+    "prev": "Prethodna",
+    "search": "Pretraži"
+  },
+  "About": {
+    "title": "O aplikaciji",
+    "desc": "Ova React aplikacija omogućava pretragu likova iz Star Treka pomoću STAPI (Star Trek API). Rezultati su paginirani, a detalje likova možete pregledati u rasporedu sa podeljenim ekranom.",
+    "featuresTitle": "Funkcionalnosti:",
+    "features": {
+      "search": "Pretraga likova po imenu (bez obzira na velika/mala slova, po podstringu)",
+      "pagination": "Paginacija sa prikazom i navigacijom na tekuću stranicu",
+      "masterDetail": "Master–detail prikaz: klik na lika otvara detalje u bočnoj sekciji",
+      "urlSync": "Sinhronizacija stanja sa URL-om: adresa odražava tekuću stranicu i izabranog lika",
+      "loading": "Indikator učitavanja i fallback UI za greške pri dohvatanju podataka",
+      "aboutPage": "Stranica „O aplikaciji“ sa informacijom o autoru i linkom ka RS School React kursu"
+    },
+    "authorLabel": "Autor:",
+    "author": "Stanislav Tsibulskii (Quoralis)"
+  },
+  "NotFound": {
+    "title": "Stranica nije pronađena",
+    "desc": "Stranica koju tražite ne postoji ili je pomerena.",
+    "backHome": "Nazad na početnu"
+  }
+}
