@@ -2,10 +2,43 @@ import InputField from '../Input/InputField.tsx';
 import SelectField from '../Select/SelectField.tsx';
 import CheckboxField from '../CheckBox/CheackBoxField.tsx';
 import FileInputField from '../FileInput/FileInputField.tsx';
+import { useRef } from 'react';
+import { type DataForm, formSchema } from '../../schemes/formSchema.ts';
+import { useDispatch } from 'react-redux';
+import type { AppDispatch } from '../../store/store.ts';
+import { addForm } from '../../store/slices/addFormSlice.ts';
+import { z } from 'zod';
 
 export default function UncontrolledForm() {
+  const dispatch = useDispatch<AppDispatch>();
+  const dataRef = useRef<HTMLFormElement>(null);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = dataRef.current;
+    if (!form) return;
+    const formData = new FormData(form);
+    const payload: DataForm = {
+      name: String(formData.get('username')),
+      age: Number(formData.get('age')),
+      email: String(formData.get('email')),
+      password: String(formData.get('password')),
+      confirmPassword: String(formData.get('confirmPassword')),
+      gender: String(formData.get('gender')),
+      country: String(formData.get('country')),
+      acceptTnC: formData.get('acceptTnC') === 'on',
+    };
+
+    const result = formSchema.safeParse(payload);
+    if (!result.success) {
+      console.log('Validation errors:', z.treeifyError(result.error));
+    } else {
+      dispatch(addForm(result.data));
+      console.log('Valid data:', result.data);
+    }
+  };
+
   return (
-    <form autoComplete="on" noValidate>
+    <form ref={dataRef} onSubmit={handleSubmit} autoComplete="on" noValidate>
       <InputField
         label="Username"
         name="username"
@@ -69,6 +102,7 @@ export default function UncontrolledForm() {
         label="Upload your picture"
         accept="image/png,image/jpeg"
       />
+      <button type="submit">Submit</button>
     </form>
   );
 }
