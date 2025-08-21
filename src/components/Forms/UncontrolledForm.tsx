@@ -3,7 +3,7 @@ import SelectField from '../Select/SelectField.tsx';
 import CheckboxField from '../CheckBox/CheackBoxField.tsx';
 import FileInputField from '../FileInput/FileInputField.tsx';
 import { useRef, useState } from 'react';
-import { type DataForm, formSchema } from '../../schemes/formSchema.ts';
+import { formSchema } from '../../schemes/formSchema.ts';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../store/store.ts';
 import { addForm } from '../../store/slices/addFormSlice.ts';
@@ -13,13 +13,14 @@ import FormError, { type FormErrors } from '../FormError/FormError.tsx';
 export default function UncontrolledForm() {
   const dispatch = useDispatch<AppDispatch>();
   const [formErrors, setFormErrors] = useState<FormErrors>();
+  const [isValid, setIsValid] = useState<boolean>(false);
   const dataRef = useRef<HTMLFormElement>(null);
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+
+  const getPayload = () => {
     const form = dataRef.current;
     if (!form) return;
     const formData = new FormData(form);
-    const payload: DataForm = {
+    return {
       name: String(formData.get('name')),
       age: Number(formData.get('age')),
       email: String(formData.get('email')),
@@ -30,18 +31,41 @@ export default function UncontrolledForm() {
       acceptTnC:
         formData.get('acceptTnC') === 'on' ? true : (undefined as never),
     };
+  };
 
+  const initValidation = () => {
+    const payload = getPayload();
     const result = formSchema.safeParse(payload);
     if (!result.success) {
       const formatedErrors = z.treeifyError(result.error);
+      setIsValid(true);
       setFormErrors(formatedErrors);
     } else {
+      setIsValid(false);
+    }
+    return result;
+  };
+
+  const onInputValidation = () => {
+    initValidation();
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const result = initValidation();
+    if (result && result.success) {
       dispatch(addForm(result.data));
     }
   };
 
   return (
-    <form ref={dataRef} onSubmit={handleSubmit} autoComplete="on" noValidate>
+    <form
+      ref={dataRef}
+      onInput={onInputValidation}
+      onSubmit={handleSubmit}
+      autoComplete="on"
+      noValidate
+    >
       <InputField
         label="Username"
         name="name"
@@ -114,7 +138,9 @@ export default function UncontrolledForm() {
         accept="image/png,image/jpeg"
       />
 
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={isValid}>
+        Submit
+      </button>
     </form>
   );
 }
