@@ -12,9 +12,12 @@ export default function InputField(props: InputFieldProps) {
   const inputId = props.id || props.name;
 
   return (
-    <div className="input_group">
-      <label htmlFor={inputId}>{props.label}</label>
+    <div className="input-group mb-3">
+      <label className="input-group-text" htmlFor={inputId}>
+        {props.label}
+      </label>
       <input
+        className="form-control"
         type={props.type || 'text'}
         id={inputId}
         name={props.name}

@@ -15,5 +15,15 @@ type FormErrorProps = {
 
 export default function FormError({ dataError, field }: FormErrorProps) {
   const error = dataError?.properties?.[field];
-  return error ? <p className="error">{error.errors}</p> : null;
+  if (!error) return null;
+
+  return (
+    <div className="text-danger mt-1  mb-3">
+      {error.errors.map((err, i) => (
+        <p key={i} className="mb-0">
+          {err}
+        </p>
+      ))}
+    </div>
+  );
 }

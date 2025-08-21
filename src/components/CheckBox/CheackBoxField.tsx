@@ -14,14 +14,17 @@ export default function CheckboxField({
   const inputId = id || name;
 
   return (
-    <div className="checkbox_group">
+    <div className="checkbox_group mb-3">
       <input
+        className="form-check-input"
         type="checkbox"
         id={inputId}
         name={name}
         defaultChecked={defaultChecked}
       />
-      <label htmlFor={inputId}>{label}</label>
+      <label className="form-check-label" htmlFor={inputId}>
+        {label}
+      </label>
     </div>
   );
 }

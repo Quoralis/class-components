@@ -14,9 +14,17 @@ export default function FileInputField({
   const inputId = id || name;
 
   return (
-    <div className="file_input_group">
-      <label htmlFor={inputId}>{label}</label>
-      <input type="file" id={inputId} name={name} accept={accept} />
+    <div className="mb-3">
+      <label htmlFor={inputId} className="form-label">
+        {label}
+      </label>
+      <input
+        type="file"
+        id={inputId}
+        name={name}
+        accept={accept}
+        className="form-control"
+      />
     </div>
   );
 }

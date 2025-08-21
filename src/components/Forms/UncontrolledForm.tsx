@@ -60,6 +60,7 @@ export default function UncontrolledForm() {
 
   return (
     <form
+      className="form-control form-control-sm"
       ref={dataRef}
       onInput={onInputValidation}
       onSubmit={handleSubmit}
