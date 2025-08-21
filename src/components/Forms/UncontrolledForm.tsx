@@ -9,6 +9,8 @@ import type { AppDispatch } from '../../store/store.ts';
 import { addForm } from '../../store/slices/addFormSlice.ts';
 import { z } from 'zod';
 import FormError, { type FormErrors } from '../FormError/FormError.tsx';
+import ButtonsSubmit from '../Buttons/ButtonsSubmit.tsx';
+import ButtonClose from '../Buttons/ButtonClose.tsx';
 
 export default function UncontrolledForm() {
   const dispatch = useDispatch<AppDispatch>();
@@ -38,10 +40,10 @@ export default function UncontrolledForm() {
     const result = formSchema.safeParse(payload);
     if (!result.success) {
       const formatedErrors = z.treeifyError(result.error);
-      setIsValid(true);
+      setIsValid(false);
       setFormErrors(formatedErrors);
     } else {
-      setIsValid(false);
+      setIsValid(true);
     }
     return result;
   };
@@ -60,7 +62,7 @@ export default function UncontrolledForm() {
 
   return (
     <form
-      className="form-control form-control-sm"
+      className="p-3 position-relative"
       ref={dataRef}
       onInput={onInputValidation}
       onSubmit={handleSubmit}
@@ -139,9 +141,8 @@ export default function UncontrolledForm() {
         accept="image/png,image/jpeg"
       />
 
-      <button type="submit" disabled={isValid}>
-        Submit
-      </button>
+      <ButtonsSubmit state={isValid} />
+      <ButtonClose />
     </form>
   );
 }

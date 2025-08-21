@@ -1,6 +1,7 @@
 # React Forms
 
 ## 🎯 Goal
+
 A demo application with **two forms inside modals** rendered via **React Portals**:
 
 - **Uncontrolled components**
@@ -11,6 +12,7 @@ Form data is stored in **Redux Toolkit** (or Zustand) and displayed on the main 
 ---
 
 ## 📦 Stack
+
 - ⚛️ React 18, TypeScript, Vite
 - 🗂️ Redux Toolkit + React-Redux
 - 📋 React Hook Form for the second form
@@ -20,9 +22,11 @@ Form data is stored in **Redux Toolkit** (or Zustand) and displayed on the main 
 ---
 
 ## 🚀 Setup
+
 ```bash
 npm install
 npm run dev      # start dev server
 npm run test     # run unit tests
 npm run build    # production build
 npm run preview  # preview the build
+```
