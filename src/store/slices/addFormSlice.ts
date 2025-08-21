@@ -3,10 +3,12 @@ import type { DataForm } from '../../schemes/formSchema.ts';
 
 interface FormState {
   dataUser: DataForm[];
+  lastAddedEmail: string | null;
 }
 
 const initialState: FormState = {
   dataUser: [],
+  lastAddedEmail: null,
 };
 
 export const addFormSlice = createSlice({
@@ -15,8 +17,12 @@ export const addFormSlice = createSlice({
   reducers: {
     addForm: (state, action: PayloadAction<DataForm>) => {
       state.dataUser.push(action.payload);
+      state.lastAddedEmail = action.payload.email;
+    },
+    setLastAddedByEmail: (state, action: PayloadAction<string>) => {
+      state.lastAddedEmail = action.payload;
     },
   },
 });
 
-export const { addForm } = addFormSlice.actions;
+export const { addForm, setLastAddedByEmail } = addFormSlice.actions;

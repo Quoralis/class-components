@@ -6,7 +6,10 @@ import { useRef, useState } from 'react';
 import { formSchema } from '../../schemes/formSchema.ts';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../store/store.ts';
-import { addForm } from '../../store/slices/addFormSlice.ts';
+import {
+  addForm,
+  setLastAddedByEmail,
+} from '../../store/slices/addFormSlice.ts';
 import { z } from 'zod';
 import FormError, { type FormErrors } from '../FormError/FormError.tsx';
 import ButtonAction from '../Buttons/ButtonAction.tsx';
@@ -48,6 +51,7 @@ export default function UncontrolledForm({ close }: Props) {
     } else {
       setIsValid(true);
     }
+    console.log(isValid);
     return result;
   };
 
@@ -60,6 +64,7 @@ export default function UncontrolledForm({ close }: Props) {
     const result = initValidation();
     if (result && result.success) {
       dispatch(addForm(result.data));
+      dispatch(setLastAddedByEmail(result.data.email));
       close();
     }
   };

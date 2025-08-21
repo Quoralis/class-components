@@ -4,11 +4,12 @@ type Users = {
   age: number;
   gender: string;
   country: string;
+  className?: string;
 };
 
 export default function Card(props: Users) {
   return (
-    <div className="card shadow-sm rounded-4 p-3 mb-3 border-0">
+    <div className={`card p-3 shadow-sm mb-3 ${props.className || ''}`}>
       <div className="card-body">
         <h5 className="card-title mb-2">{props.name}</h5>
         <p className="card-text text-muted small mb-2">{props.email}</p>
