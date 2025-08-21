@@ -10,9 +10,13 @@ import { addForm } from '../../store/slices/addFormSlice.ts';
 import { z } from 'zod';
 import FormError, { type FormErrors } from '../FormError/FormError.tsx';
 import ButtonsSubmit from '../Buttons/ButtonsSubmit.tsx';
-import ButtonClose from '../Buttons/ButtonClose.tsx';
+import ButtonAction from '../Buttons/ButtonAction.tsx';
 
-export default function UncontrolledForm() {
+interface Props {
+  close: () => void;
+}
+
+export default function UncontrolledForm({ close }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const [formErrors, setFormErrors] = useState<FormErrors>();
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -140,9 +144,16 @@ export default function UncontrolledForm() {
         label="Upload your picture"
         accept="image/png,image/jpeg"
       />
-
-      <ButtonsSubmit state={isValid} />
-      <ButtonClose />
+      <div className="d-flex justify-content-between mt-4">
+        <ButtonsSubmit state={isValid} />
+        <ButtonAction
+          onClick={close}
+          className="btn-primary mt-3"
+          type="button"
+          disabled={false}
+          name={'Cancel'}
+        />
+      </div>
     </form>
   );
 }
