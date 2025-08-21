@@ -9,7 +9,6 @@ import type { AppDispatch } from '../../store/store.ts';
 import { addForm } from '../../store/slices/addFormSlice.ts';
 import { z } from 'zod';
 import FormError, { type FormErrors } from '../FormError/FormError.tsx';
-import ButtonsSubmit from '../Buttons/ButtonsSubmit.tsx';
 import ButtonAction from '../Buttons/ButtonAction.tsx';
 
 interface Props {
@@ -61,6 +60,7 @@ export default function UncontrolledForm({ close }: Props) {
     const result = initValidation();
     if (result && result.success) {
       dispatch(addForm(result.data));
+      close();
     }
   };
 
@@ -145,7 +145,12 @@ export default function UncontrolledForm({ close }: Props) {
         accept="image/png,image/jpeg"
       />
       <div className="d-flex justify-content-between mt-4">
-        <ButtonsSubmit state={isValid} />
+        <ButtonAction
+          className="btn-primary mt-3"
+          type="submit"
+          disabled={!isValid}
+          name={'Submit'}
+        />
         <ButtonAction
           onClick={close}
           className="btn-primary mt-3"

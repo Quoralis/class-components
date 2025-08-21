@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import MainPage from './layout/MainPage';
 import { Provider } from 'react-redux';
-import { store } from './store/store.ts';
+import { store } from './store/store';
 
 const root = document.getElementById('root');
 if (root) {
