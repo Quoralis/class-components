@@ -15,7 +15,7 @@ type FormErrorProps = {
 
 export default function FormError({ dataError, field }: FormErrorProps) {
   const error = dataError?.properties?.[field];
-  if (!error) return null;
+  if (!error) return <div style={{ minHeight: '1.5rem' }}></div>;
 
   return (
     <div

@@ -101,14 +101,12 @@ export default function UncontrolledForm({ close }: Props) {
         type="text"
         autoComplete="username"
       />
-      <div style={{ minHeight: '1.5rem' }}>
-        <FormError dataError={formErrors} field={'name'} />
-      </div>
+
+      <FormError dataError={formErrors} field={'name'} />
 
       <InputField label="Age" name="age" id="age" type="number" />
-      <div style={{ minHeight: '1.5rem' }}>
-        <FormError dataError={formErrors} field={'age'} />
-      </div>
+
+      <FormError dataError={formErrors} field={'age'} />
 
       <InputField
         label="Email"
@@ -117,9 +115,8 @@ export default function UncontrolledForm({ close }: Props) {
         type="email"
         autoComplete="email"
       />
-      <div style={{ minHeight: '1.5rem' }}>
-        <FormError dataError={formErrors} field={'email'} />
-      </div>
+
+      <FormError dataError={formErrors} field={'email'} />
 
       <InputField
         label="Password"
@@ -128,9 +125,8 @@ export default function UncontrolledForm({ close }: Props) {
         type="password"
         autoComplete="new-password"
       />
-      <div style={{ minHeight: '1.5rem' }}>
-        <FormError dataError={formErrors} field={'password'} />
-      </div>
+
+      <FormError dataError={formErrors} field={'password'} />
 
       <InputField
         label="Confirm password"
@@ -139,9 +135,8 @@ export default function UncontrolledForm({ close }: Props) {
         type="password"
         autoComplete="new-password"
       />
-      <div style={{ minHeight: '1.5rem' }}>
-        <FormError dataError={formErrors} field={'confirmPassword'} />
-      </div>
+
+      <FormError dataError={formErrors} field={'confirmPassword'} />
 
       <SelectField
         label="Gender"
@@ -152,23 +147,20 @@ export default function UncontrolledForm({ close }: Props) {
           { value: 'female', label: 'Female' },
         ]}
       />
-      <div style={{ minHeight: '1.5rem' }}>
-        <FormError dataError={formErrors} field={'gender'} />
-      </div>
+
+      <FormError dataError={formErrors} field={'gender'} />
 
       <CountyInputField label="Country" name="country" id="country" />
-      <div style={{ minHeight: '1.5rem' }}>
-        <FormError dataError={formErrors} field={'country'} />
-      </div>
+
+      <FormError dataError={formErrors} field={'country'} />
 
       <CheckboxField
         label="I accept Terms and Conditions"
         name="acceptTnC"
         id="acceptTnC"
       />
-      <div style={{ minHeight: '1.5rem' }}>
-        <FormError dataError={formErrors} field={'acceptTnC'} />
-      </div>
+
+      <FormError dataError={formErrors} field={'acceptTnC'} />
 
       <FileInputField
         name="file"
@@ -178,9 +170,8 @@ export default function UncontrolledForm({ close }: Props) {
           handleFileChange(e);
         }}
       />
-      <div style={{ minHeight: '1.5rem' }}>
-        <FormError dataError={formErrors} field={'file'} />
-      </div>
+
+      <FormError dataError={formErrors} field={'file'} />
 
       <div className="d-flex justify-content-between mt-4">
         <ButtonAction
