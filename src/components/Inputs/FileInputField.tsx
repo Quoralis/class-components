@@ -3,7 +3,7 @@ interface FileInputFieldProps {
   name: string;
   id?: string;
   accept?: string;
-  onChange?: (value: string) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function FileInputField({
@@ -11,6 +11,7 @@ export default function FileInputField({
   name,
   id,
   accept = 'image/png, image/jpeg',
+  onChange,
 }: FileInputFieldProps) {
   const inputId = id || name;
 
@@ -24,6 +25,7 @@ export default function FileInputField({
         id={inputId}
         name={name}
         accept={accept}
+        onChange={onChange}
         className="form-control"
         required
       />

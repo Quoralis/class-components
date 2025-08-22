@@ -14,6 +14,8 @@ import FormError, { type FormErrors } from '../FormError/FormError.tsx';
 import ButtonAction from '../Buttons/ButtonAction.tsx';
 import InputField from '../Inputs/InputField.tsx';
 import CountyInputField from '../Inputs/CountyInputField.tsx';
+import { fileToBase64 } from '../../utils/fileToBase64.ts';
+import { addBase64 } from '../../store/slices/Base64ImageSlice.ts';
 
 interface Props {
   close: () => void;
@@ -67,6 +69,15 @@ export default function UncontrolledForm({ close }: Props) {
       dispatch(addForm(result.data));
       dispatch(setLastAddedByEmail(result.data.email));
       close();
+    }
+  };
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    try {
+      const result = await fileToBase64(e);
+      dispatch(addBase64(result));
+    } catch (err) {
+      console.error('Error reading:', err);
     }
   };
 
@@ -163,6 +174,9 @@ export default function UncontrolledForm({ close }: Props) {
         name="file"
         label="Upload your picture"
         accept="image/png,image/jpeg"
+        onChange={(e) => {
+          handleFileChange(e);
+        }}
       />
       <div style={{ minHeight: '1.5rem' }}>
         <FormError dataError={formErrors} field={'file'} />
