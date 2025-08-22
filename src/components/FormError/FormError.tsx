@@ -18,7 +18,10 @@ export default function FormError({ dataError, field }: FormErrorProps) {
   if (!error) return null;
 
   return (
-    <div className="text-danger mt-1  mb-3">
+    <div
+      className="text-danger"
+      style={{ fontSize: '0.54rem', maxHeight: '2rem', overflowY: 'auto' }}
+    >
       {error.errors.map((err, i) => (
         <p key={i} className="mb-0">
           {err}

@@ -38,6 +38,7 @@ export default function UncontrolledForm({ close }: Props) {
       country: String(formData.get('country')),
       acceptTnC:
         formData.get('acceptTnC') === 'on' ? true : (undefined as never),
+      file: formData.get('file'),
     };
   };
 
@@ -51,7 +52,6 @@ export default function UncontrolledForm({ close }: Props) {
     } else {
       setIsValid(true);
     }
-    console.log(isValid);
     return result;
   };
 
@@ -78,6 +78,10 @@ export default function UncontrolledForm({ close }: Props) {
       autoComplete="on"
       noValidate
     >
+      <h2 className="mb-4 text-center text-primary fw-semibold">
+        Uncontrolled Form
+      </h2>
+
       <InputField
         label="Username"
         name="name"
@@ -85,10 +89,14 @@ export default function UncontrolledForm({ close }: Props) {
         type="text"
         autoComplete="username"
       />
-      <FormError dataError={formErrors} field={'name'} />
+      <div style={{ minHeight: '1.5rem' }}>
+        <FormError dataError={formErrors} field={'name'} />
+      </div>
 
       <InputField label="Age" name="age" id="age" type="number" />
-      <FormError dataError={formErrors} field={'age'} />
+      <div style={{ minHeight: '1.5rem' }}>
+        <FormError dataError={formErrors} field={'age'} />
+      </div>
 
       <InputField
         label="Email"
@@ -97,7 +105,9 @@ export default function UncontrolledForm({ close }: Props) {
         type="email"
         autoComplete="email"
       />
-      <FormError dataError={formErrors} field={'email'} />
+      <div style={{ minHeight: '1.5rem' }}>
+        <FormError dataError={formErrors} field={'email'} />
+      </div>
 
       <InputField
         label="Password"
@@ -106,7 +116,9 @@ export default function UncontrolledForm({ close }: Props) {
         type="password"
         autoComplete="new-password"
       />
-      <FormError dataError={formErrors} field={'password'} />
+      <div style={{ minHeight: '1.5rem' }}>
+        <FormError dataError={formErrors} field={'password'} />
+      </div>
 
       <InputField
         label="Confirm password"
@@ -115,7 +127,9 @@ export default function UncontrolledForm({ close }: Props) {
         type="password"
         autoComplete="new-password"
       />
-      <FormError dataError={formErrors} field={'confirmPassword'} />
+      <div style={{ minHeight: '1.5rem' }}>
+        <FormError dataError={formErrors} field={'confirmPassword'} />
+      </div>
 
       <SelectField
         label="Gender"
@@ -126,7 +140,9 @@ export default function UncontrolledForm({ close }: Props) {
           { value: 'female', label: 'Female' },
         ]}
       />
-      <FormError dataError={formErrors} field={'gender'} />
+      <div style={{ minHeight: '1.5rem' }}>
+        <FormError dataError={formErrors} field={'gender'} />
+      </div>
 
       <InputField
         label="Country"
@@ -135,20 +151,28 @@ export default function UncontrolledForm({ close }: Props) {
         type="text"
         autoComplete="country-name"
       />
-      <FormError dataError={formErrors} field={'country'} />
+      <div style={{ minHeight: '1.5rem' }}>
+        <FormError dataError={formErrors} field={'country'} />
+      </div>
 
       <CheckboxField
         label="I accept Terms and Conditions"
         name="acceptTnC"
         id="acceptTnC"
       />
-      <FormError dataError={formErrors} field={'acceptTnC'} />
+      <div style={{ minHeight: '1.5rem' }}>
+        <FormError dataError={formErrors} field={'acceptTnC'} />
+      </div>
 
       <FileInputField
-        name="picture"
+        name="file"
         label="Upload your picture"
         accept="image/png,image/jpeg"
       />
+      <div style={{ minHeight: '1.5rem' }}>
+        <FormError dataError={formErrors} field={'file'} />
+      </div>
+
       <div className="d-flex justify-content-between mt-4">
         <ButtonAction
           className="btn-primary mt-3"

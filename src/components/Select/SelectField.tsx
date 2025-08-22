@@ -15,7 +15,7 @@ export default function SelectField(props: SelectFieldProps) {
   const selectId = props.id || props.name;
 
   return (
-    <div className="input-group mb-3">
+    <div className="input-group mb-1">
       <label className="input-group-text" htmlFor={selectId}>
         {props.label}
       </label>

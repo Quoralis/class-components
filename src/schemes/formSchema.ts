@@ -3,6 +3,8 @@ import { z } from 'zod';
 const passwordCheck =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).+$/;
 
+const fileSizeLimit = 0.1 * 1024 * 1024; //  перевод в байты
+
 export const formSchema = z
   .object({
     name: z
@@ -28,6 +30,14 @@ export const formSchema = z
     acceptTnC: z.literal(true, {
       message: 'You must accept the Terms and Conditions',
     }),
+    file: z
+      .instanceof(File)
+      .refine((file) => ['image/png', 'image/jpeg'].includes(file.type), {
+        message: 'Invalid image file type',
+      })
+      .refine((file) => file.size <= fileSizeLimit, {
+        message: 'File size should not exceed 0.1mb',
+      }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords must match',

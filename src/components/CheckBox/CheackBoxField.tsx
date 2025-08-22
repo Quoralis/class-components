@@ -14,7 +14,7 @@ export default function CheckboxField({
   const inputId = id || name;
 
   return (
-    <div className="checkbox_group mb-3">
+    <div className="checkbox_group mb-13">
       <input
         className="form-check-input"
         type="checkbox"

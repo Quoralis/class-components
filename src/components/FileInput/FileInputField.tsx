@@ -3,6 +3,7 @@ interface FileInputFieldProps {
   name: string;
   id?: string;
   accept?: string;
+  onChange?: (value: string) => void;
 }
 
 export default function FileInputField({
@@ -14,7 +15,7 @@ export default function FileInputField({
   const inputId = id || name;
 
   return (
-    <div className="mb-3">
+    <div className="mb-1">
       <label htmlFor={inputId} className="form-label">
         {label}
       </label>
@@ -24,6 +25,7 @@ export default function FileInputField({
         name={name}
         accept={accept}
         className="form-control"
+        required
       />
     </div>
   );
