@@ -1,7 +1,6 @@
-import InputField from '../Input/InputField.tsx';
 import SelectField from '../Select/SelectField.tsx';
-import CheckboxField from '../CheckBox/CheackBoxField.tsx';
-import FileInputField from '../FileInput/FileInputField.tsx';
+import CheckboxField from '../Inputs/CheackBoxField.tsx';
+import FileInputField from '../Inputs/FileInputField.tsx';
 import { useRef, useState } from 'react';
 import { formSchema } from '../../schemes/formSchema.ts';
 import { useDispatch } from 'react-redux';
@@ -13,6 +12,8 @@ import {
 import { z } from 'zod';
 import FormError, { type FormErrors } from '../FormError/FormError.tsx';
 import ButtonAction from '../Buttons/ButtonAction.tsx';
+import InputField from '../Inputs/InputField.tsx';
+import CountyInputField from '../Inputs/CountyInputField.tsx';
 
 interface Props {
   close: () => void;
@@ -144,13 +145,7 @@ export default function UncontrolledForm({ close }: Props) {
         <FormError dataError={formErrors} field={'gender'} />
       </div>
 
-      <InputField
-        label="Country"
-        name="country"
-        id="country"
-        type="text"
-        autoComplete="country-name"
-      />
+      <CountyInputField label="Country" name="country" id="country" />
       <div style={{ minHeight: '1.5rem' }}>
         <FormError dataError={formErrors} field={'country'} />
       </div>
