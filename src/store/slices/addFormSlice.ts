@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { DataForm } from '../../schemes/formSchema.ts';
+import type { DataForm } from '../../schemes/formScheme.ts';
 
 interface FormState {
   dataUser: DataForm[];

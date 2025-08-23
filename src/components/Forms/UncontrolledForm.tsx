@@ -2,7 +2,7 @@ import SelectField from '../Select/SelectField.tsx';
 import CheckboxField from '../Inputs/CheackBoxField.tsx';
 import FileInputField from '../Inputs/FileInputField.tsx';
 import { useRef, useState } from 'react';
-import { formSchema } from '../../schemes/formSchema.ts';
+import { formScheme } from '../../schemes/formScheme.ts';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../store/store.ts';
 import {
@@ -15,7 +15,6 @@ import ButtonAction from '../Buttons/ButtonAction.tsx';
 import InputField from '../Inputs/InputField.tsx';
 import CountyInputField from '../Inputs/CountyInputField.tsx';
 import { fileToBase64 } from '../../utils/fileToBase64.ts';
-import { addBase64 } from '../../store/slices/Base64ImageSlice.ts';
 
 interface Props {
   close: () => void;
@@ -26,6 +25,7 @@ export default function UncontrolledForm({ close }: Props) {
   const [formErrors, setFormErrors] = useState<FormErrors>();
   const [isValid, setIsValid] = useState<boolean>(false);
   const dataRef = useRef<HTMLFormElement>(null);
+  const [image, setImage] = useState<string>();
 
   const getPayload = () => {
     const form = dataRef.current;
@@ -47,7 +47,7 @@ export default function UncontrolledForm({ close }: Props) {
 
   const initValidation = () => {
     const payload = getPayload();
-    const result = formSchema.safeParse(payload);
+    const result = formScheme.safeParse(payload);
     if (!result.success) {
       const formatedErrors = z.treeifyError(result.error);
       setIsValid(false);
@@ -66,7 +66,7 @@ export default function UncontrolledForm({ close }: Props) {
     e.preventDefault();
     const result = initValidation();
     if (result && result.success) {
-      dispatch(addForm(result.data));
+      dispatch(addForm({ ...result.data, image }));
       dispatch(setLastAddedByEmail(result.data.email));
       close();
     }
@@ -75,7 +75,7 @@ export default function UncontrolledForm({ close }: Props) {
     e.preventDefault();
     try {
       const result = await fileToBase64(e);
-      dispatch(addBase64(result));
+      setImage(result);
     } catch (err) {
       console.error('Error reading:', err);
     }

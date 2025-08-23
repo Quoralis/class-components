@@ -5,7 +5,7 @@ const passwordCheck =
 
 const fileSizeLimit = 0.1 * 1024 * 1024; //  перевод в байты
 
-export const formSchema = z
+export const formScheme = z
   .object({
     name: z
       .string()
@@ -44,4 +44,4 @@ export const formSchema = z
     path: ['confirmPassword'],
   });
 
-export type DataForm = z.infer<typeof formSchema>;
+export type DataForm = z.infer<typeof formScheme> & { image?: string }; //  расширили тип для base64

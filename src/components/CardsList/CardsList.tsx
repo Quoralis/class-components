@@ -26,6 +26,7 @@ export default function CardsList() {
                 ? 'border border-primary bg-primary-subtle rounded-4'
                 : 'rounded-3'
             }
+            image={person.image ? person.image : ''}
           />
         </div>
       ))}

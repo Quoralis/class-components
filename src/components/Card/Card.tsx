@@ -5,6 +5,7 @@ type Users = {
   gender: string;
   country: string;
   className?: string;
+  image: string;
 };
 
 export default function Card(props: Users) {
@@ -13,7 +14,11 @@ export default function Card(props: Users) {
       <div className="card-body">
         <h5 className="card-title mb-2">{props.name}</h5>
         <p className="card-text text-muted small mb-2">{props.email}</p>
-
+        <img
+          className="img-fluid rounded-circle border border-2 border-primary shadow-sm"
+          src={props.image}
+          alt="avatar"
+        />
         <div className="d-flex flex-wrap gap-4">
           <div>
             <span className="text-secondary small">Age</span>
