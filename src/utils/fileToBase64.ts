@@ -1,9 +1,16 @@
 export function fileToBase64(
-  e: React.ChangeEvent<HTMLInputElement>
+  input: File | React.ChangeEvent<HTMLInputElement>
 ): Promise<string> {
   return new Promise((resolve, reject) => {
-    const file = e.target.files?.[0];
-    if (!file) return reject(new Error('No file selected'));
+    let file: File | undefined;
+
+    if (input instanceof File) {
+      file = input;
+    } else if ('target' in input && input.target.files?.[0]) {
+      file = input.target.files[0];
+    }
+
+    if (!file) return reject(new Error('No file provided'));
 
     const reader = new FileReader();
     reader.onload = () => {
@@ -14,7 +21,6 @@ export function fileToBase64(
       }
     };
     reader.onerror = reject;
-
-    reader.readAsDataURL(file); // ⬅ запускаем чтение
+    reader.readAsDataURL(file);
   });
 }

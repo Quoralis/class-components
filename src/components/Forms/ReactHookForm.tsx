@@ -8,6 +8,10 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 import { type DataForm, formScheme } from '../../schemes/formScheme.ts';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FormError from '../FormError/FormError.tsx';
+import { submitUser } from '../../features/userForm.actions.ts';
+import { useDispatch } from 'react-redux';
+import type { AppDispatch } from '../../store/store.ts';
+import { fileToBase64 } from '../../utils/fileToBase64.ts';
 
 interface Props {
   close: () => void;
@@ -17,9 +21,11 @@ export default function ReactHookForm({ close }: Props) {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isDirty },
+    watch,
+    formState: { errors, isValid },
   } = useForm<DataForm>({
     resolver: zodResolver(formScheme),
+    mode: 'onChange',
     defaultValues: {
       name: 'Max',
       age: 23,
@@ -29,13 +35,25 @@ export default function ReactHookForm({ close }: Props) {
       gender: '',
       country: '',
       acceptTnC: true,
-      file: undefined,
     },
   });
+  const dispatch = useDispatch<AppDispatch>();
 
-  const submit: SubmitHandler<DataForm> = (data) => {
-    console.log('Dirty?', isDirty);
-    console.log(data);
+  const submit: SubmitHandler<DataForm> = async (data) => {
+    let base64Image: string | undefined = undefined;
+
+    const fileList = watch('file');
+    const file = fileList?.[0]; // потому что file — это FileList
+
+    if (file) {
+      try {
+        base64Image = await fileToBase64(file);
+      } catch (err) {
+        console.error('Base64 error:', err);
+      }
+    }
+    if (base64Image) submitUser(data, { dispatch, close }, base64Image);
+    close();
   };
 
   return (
@@ -126,9 +144,6 @@ export default function ReactHookForm({ close }: Props) {
       <FileInputField
         label="Upload your picture"
         accept="image/png,image/jpeg"
-        onChange={(e) => {
-          console.log(e.target);
-        }}
         register={register('file')}
       />
 
@@ -138,7 +153,7 @@ export default function ReactHookForm({ close }: Props) {
         <ButtonAction
           className="btn-primary mt-3"
           type="submit"
-          disabled={!isDirty || isSubmitting}
+          disabled={!isValid}
           name={'Submit'}
         />
         <ButtonAction
