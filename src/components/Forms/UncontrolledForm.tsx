@@ -2,17 +2,17 @@ import SelectField from '../Inputs/SelectField.tsx';
 import CheckboxField from '../Inputs/CheackBoxField.tsx';
 import FileInputField from '../Inputs/FileInputField.tsx';
 import { useRef, useState } from 'react';
-import { formScheme } from '../../schemes/formScheme.ts';
+import { type DataForm, formScheme } from '../../schemes/formScheme.ts';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../store/store.ts';
 
-import { z } from 'zod';
-import FormError, { type FormErrors } from '../FormError/FormError.tsx';
 import ButtonAction from '../Buttons/ButtonAction.tsx';
 import InputField from '../Inputs/InputField.tsx';
 import CountyInputField from '../Inputs/CountyInputField.tsx';
 import { fileToBase64 } from '../../utils/fileToBase64.ts';
 import { submitUser } from '../../features/userForm.actions.ts';
+import type { ZodFormattedError } from 'zod';
+import FormError from '../FormError/FormError.tsx';
 
 interface Props {
   close: () => void;
@@ -20,7 +20,7 @@ interface Props {
 
 export default function UncontrolledForm({ close }: Props) {
   const dispatch = useDispatch<AppDispatch>();
-  const [formErrors, setFormErrors] = useState<FormErrors>();
+  const [formErrors, setFormErrors] = useState<ZodFormattedError<DataForm>>();
   const [isValid, setIsValid] = useState<boolean>(false);
   const dataRef = useRef<HTMLFormElement>(null);
   const [image, setImage] = useState<string>();
@@ -47,7 +47,8 @@ export default function UncontrolledForm({ close }: Props) {
     const payload = getPayload();
     const result = formScheme.safeParse(payload);
     if (!result.success) {
-      const formatedErrors = z.treeifyError(result.error);
+      const formatedErrors: ZodFormattedError<DataForm> = result.error.format();
+      console.log(formatedErrors);
       setIsValid(false);
       setFormErrors(formatedErrors);
     } else {

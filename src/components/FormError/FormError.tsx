@@ -1,18 +1,10 @@
 import type { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
-
-export type FormErrors = {
-  errors: string[];
-  properties?: {
-    [key: string]: {
-      errors: string[];
-      properties?: FormErrors['properties'];
-    };
-  };
-};
+import type { ZodFormattedError } from 'zod';
+import type { DataForm } from '../../schemes/formScheme.ts';
 
 type FormErrorProps = {
-  dataError?: FormErrors;
-  field: string;
+  dataError?: ZodFormattedError<DataForm>;
+  field: keyof DataForm;
   rhfErrors?:
     | string
     | string[]
@@ -39,8 +31,11 @@ export default function FormError({
     ) {
       error = [rhfErrors.message];
     }
-  } else if (field && dataError?.properties?.[field]?.errors?.length) {
-    error = dataError.properties[field].errors;
+  } else if (dataError && field in dataError) {
+    const fieldError = dataError[field]?._errors;
+    if (fieldError?.length) {
+      error = fieldError;
+    }
   }
 
   return (
