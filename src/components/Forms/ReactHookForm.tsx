@@ -48,12 +48,12 @@ export default function ReactHookForm({ close }: Props) {
     if (file) {
       try {
         base64Image = await fileToBase64(file);
+        if (base64Image) submitUser(data, { dispatch, close }, base64Image);
+        close();
       } catch (err) {
         console.error('Base64 error:', err);
       }
     }
-    if (base64Image) submitUser(data, { dispatch, close }, base64Image);
-    close();
   };
 
   return (

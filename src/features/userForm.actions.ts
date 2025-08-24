@@ -9,8 +9,8 @@ type SubmitDeps = {
 
 export function submitUser(values: DataForm, deps: SubmitDeps, image: string) {
   const { dispatch, close } = deps;
-
-  dispatch(addForm({ ...values, image }));
+  const payload = { ...values, file: null, image }; //   удаляем файл из объекта, чтобы не  попадал в  redux
+  dispatch(addForm(payload));
   dispatch(setLastAddedByEmail(values.email));
   close();
 }
