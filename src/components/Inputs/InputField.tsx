@@ -1,29 +1,43 @@
+import type { UseFormRegisterReturn } from 'react-hook-form';
+
 interface InputFieldProps {
   label: string;
-  name: string;
+  name?: string;
   type?: string;
   id?: string;
   defaultValue?: string;
   accept?: string;
   autoComplete?: string;
+  register?: UseFormRegisterReturn;
 }
 
 export default function InputField(props: InputFieldProps) {
-  const inputId = props.id || props.name;
-
+  const {
+    label,
+    name,
+    type,
+    id,
+    defaultValue,
+    accept,
+    autoComplete,
+    register,
+  } = props;
+  const inputId = id || name;
+  const fieldName = register?.name ?? name;
   return (
     <div className="input-group mb-1">
       <label className="input-group-text" htmlFor={inputId}>
-        {props.label}
+        {label}
       </label>
       <input
         className="form-control"
-        type={props.type || 'text'}
+        type={type || 'text'}
         id={inputId}
-        name={props.name}
-        defaultValue={props.defaultValue}
-        accept={props.accept}
-        autoComplete={props.name}
+        name={fieldName}
+        defaultValue={defaultValue}
+        accept={accept}
+        autoComplete={autoComplete}
+        {...register}
       />
     </div>
   );

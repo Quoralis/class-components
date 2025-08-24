@@ -1,20 +1,18 @@
-import SelectField from '../Select/SelectField.tsx';
+import SelectField from '../Inputs/SelectField.tsx';
 import CheckboxField from '../Inputs/CheackBoxField.tsx';
 import FileInputField from '../Inputs/FileInputField.tsx';
 import { useRef, useState } from 'react';
 import { formScheme } from '../../schemes/formScheme.ts';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../store/store.ts';
-import {
-  addForm,
-  setLastAddedByEmail,
-} from '../../store/slices/addFormSlice.ts';
+
 import { z } from 'zod';
 import FormError, { type FormErrors } from '../FormError/FormError.tsx';
 import ButtonAction from '../Buttons/ButtonAction.tsx';
 import InputField from '../Inputs/InputField.tsx';
 import CountyInputField from '../Inputs/CountyInputField.tsx';
 import { fileToBase64 } from '../../utils/fileToBase64.ts';
+import { submitUser } from '../../features/userForm.actions.ts';
 
 interface Props {
   close: () => void;
@@ -55,7 +53,7 @@ export default function UncontrolledForm({ close }: Props) {
     } else {
       setIsValid(true);
     }
-    return result;
+    return result.data;
   };
 
   const onInputValidation = () => {
@@ -65,10 +63,8 @@ export default function UncontrolledForm({ close }: Props) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = initValidation();
-    if (result && result.success) {
-      dispatch(addForm({ ...result.data, image }));
-      dispatch(setLastAddedByEmail(result.data.email));
-      close();
+    if (result && image) {
+      submitUser(result, { dispatch, close }, image);
     }
   };
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,7 +94,6 @@ export default function UncontrolledForm({ close }: Props) {
         label="Username"
         name="name"
         id="username"
-        type="text"
         autoComplete="username"
       />
 

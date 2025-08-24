@@ -31,13 +31,32 @@ export const formScheme = z
       message: 'You must accept the Terms and Conditions',
     }),
     file: z
-      .instanceof(File)
-      .refine((file) => ['image/png', 'image/jpeg'].includes(file.type), {
-        message: 'Invalid image file type',
+      .any()
+      .transform((value) => {
+        if (value instanceof FileList) return value[0];
+        return value;
       })
-      .refine((file) => file.size <= fileSizeLimit, {
-        message: 'File size should not exceed 0.1mb',
-      }),
+      .refine((file) => file instanceof File, {
+        message: 'Please upload a file',
+      })
+      .refine(
+        (file) => {
+          if (!file) return false;
+          return ['image/png', 'image/jpeg'].includes(file.type);
+        },
+        {
+          message: 'Invalid image file type',
+        }
+      )
+      .refine(
+        (file) => {
+          if (!file) return false;
+          return file.size <= fileSizeLimit;
+        },
+        {
+          message: 'File size should not exceed 0.1mb',
+        }
+      ),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords must match',

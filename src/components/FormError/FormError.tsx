@@ -1,3 +1,5 @@
+import type { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
+
 export type FormErrors = {
   errors: string[];
   properties?: {
@@ -11,18 +13,47 @@ export type FormErrors = {
 type FormErrorProps = {
   dataError?: FormErrors;
   field: string;
+  rhfErrors?:
+    | string
+    | string[]
+    | FieldError
+    | Merge<FieldError, FieldErrorsImpl>;
 };
 
-export default function FormError({ dataError, field }: FormErrorProps) {
-  const error = dataError?.properties?.[field];
-  if (!error) return <div style={{ minHeight: '1.5rem' }}></div>;
+export default function FormError({
+  dataError,
+  field,
+  rhfErrors,
+}: FormErrorProps) {
+  let error: string[] = [];
+
+  if (rhfErrors) {
+    if (typeof rhfErrors === 'string') {
+      error = [rhfErrors];
+    } else if (Array.isArray(rhfErrors)) {
+      error = rhfErrors;
+    } else if (
+      typeof rhfErrors === 'object' &&
+      'message' in rhfErrors &&
+      typeof rhfErrors.message === 'string'
+    ) {
+      error = [rhfErrors.message];
+    }
+  } else if (field && dataError?.properties?.[field]?.errors?.length) {
+    error = dataError.properties[field].errors;
+  }
 
   return (
     <div
       className="text-danger"
-      style={{ fontSize: '0.54rem', maxHeight: '2rem', overflowY: 'auto' }}
+      style={{
+        fontSize: '0.54rem',
+        minHeight: '1.5rem',
+        maxHeight: '2rem',
+        overflowY: 'auto',
+      }}
     >
-      {error.errors.map((err, i) => (
+      {error.map((err, i) => (
         <p key={i} className="mb-0">
           {err}
         </p>

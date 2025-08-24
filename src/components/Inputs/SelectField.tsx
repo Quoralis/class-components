@@ -1,3 +1,5 @@
+import type { UseFormRegisterReturn } from 'react-hook-form';
+
 interface Option {
   value: string;
   label: string;
@@ -5,27 +7,31 @@ interface Option {
 
 interface SelectFieldProps {
   label: string;
-  name: string;
+  name?: string;
   id?: string;
   options: Option[];
   defaultValue?: string;
+  register?: UseFormRegisterReturn;
 }
 
 export default function SelectField(props: SelectFieldProps) {
-  const selectId = props.id || props.name;
+  const { label, name, id, options, defaultValue, register } = props;
+  const selectId = id || name;
+  const fieldName = register?.name ?? name;
 
   return (
     <div className="input-group mb-1">
       <label className="input-group-text" htmlFor={selectId}>
-        {props.label}
+        {label}
       </label>
       <select
         className="form-select form-select-sm"
         id={selectId}
-        name={props.name}
-        defaultValue={props.defaultValue}
+        name={fieldName}
+        defaultValue={defaultValue}
+        {...register}
       >
-        {props.options.map((option) => (
+        {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>
