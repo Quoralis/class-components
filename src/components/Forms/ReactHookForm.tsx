@@ -121,6 +121,7 @@ export default function ReactHookForm({ close }: Props) {
           { value: 'female', label: 'Female' },
         ]}
         register={register('gender')}
+        id="gender"
       />
 
       <FormError rhfErrors={errors.gender?.message} field={'gender'} />
@@ -145,6 +146,7 @@ export default function ReactHookForm({ close }: Props) {
         label="Upload your picture"
         accept="image/png,image/jpeg"
         register={register('file')}
+        id="file"
       />
 
       <FormError rhfErrors={errors.file?.message} field={'file'} />
