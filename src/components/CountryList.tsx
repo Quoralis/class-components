@@ -1,14 +1,18 @@
 import fetchCountriesData from '../api/fetchCountriesData';
 import type { DataCountry } from '../types/co2.ts';
-import CountryItem from './CountryItem.tsx';
-import CountryTable from './CountryTable.tsx';
+import CountryItem from './CountryItem';
+import CountryTable from './CountryTable';
 import { useState } from 'react';
 
 const countriesData = fetchCountriesData();
 
 export default function CountryList() {
   const countries = countriesData.read();
-  const [isOpen, setOpen] = useState(false);
+  const [openId, setOpenId] = useState<string | null>(null);
+
+  const handleCard = (id: string) => {
+    setOpenId((prevState) => (prevState === id ? null : id));
+  };
 
   return (
     <div className="container py-3 bg-dark text-warning min-vh-100">
@@ -20,11 +24,12 @@ export default function CountryList() {
             <li
               key={key}
               className="list-group-item bg-dark text-warning border-warning"
+              onClick={() => handleCard(key)}
             >
-              <div role={'button'} onClick={() => setOpen(!isOpen)}>
+              <div role={'button'}>
                 <h4>{key}</h4>
                 <CountryItem country={value} />
-                {isOpen && <CountryTable country={value} />}
+                {openId === key && <CountryTable country={value} />}
               </div>
             </li>
           )
