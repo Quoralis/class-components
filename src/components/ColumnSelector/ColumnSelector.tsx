@@ -7,14 +7,15 @@ interface Props {
 }
 
 export default function ColumnSelector({ close }: Props) {
-  const handleSubmit = (e: React.MouseEvent) => {
-    // временно
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('click submit');
+    const form = new FormData(e.currentTarget);
+    const allColumns = form.getAll('columns');
+    console.log('allColumns', allColumns);
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       {CHECKBOX_FIELDS.map((field) => (
         <CheckboxField
           fieldName={field.fieldKey}
@@ -24,7 +25,6 @@ export default function ColumnSelector({ close }: Props) {
       ))}
       <button
         type="submit"
-        onClick={handleSubmit}
         className="btn btn-dark text-warning border-warning me-2"
       >
         Submit

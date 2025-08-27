@@ -14,6 +14,7 @@ export default function CheckboxField({
         type="checkbox"
         id={fieldName}
         name="columns"
+        value={fieldName}
       />
       <label className="form-check-label text-warning ms-2" htmlFor={fieldName}>
         {label}
