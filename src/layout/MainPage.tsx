@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 
-const CountryList = lazy(() => import('../components/CountryList'));
+const CountryList = lazy(() => import('../components/Countries/CountryList'));
 
 export default function MainPage() {
   return (

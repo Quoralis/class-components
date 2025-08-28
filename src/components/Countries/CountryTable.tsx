@@ -1,4 +1,4 @@
-import type { DataCountry, DataYear } from '../types/co2.ts';
+import type { DataCountry, DataYear } from '../../types/co2.ts';
 
 export default function CountryTable({
   country,

@@ -1,11 +1,11 @@
-import fetchCountriesData from '../api/fetchCountriesData';
-import type { DataCountry, DataYear } from '../types/co2.ts';
+import fetchCountriesData from '../../api/fetchCountriesData';
+import type { DataCountry, DataYear } from '../../types/co2.ts';
+import { useState } from 'react';
+import Modal from '../Modal/Modal';
+import ColumnSelector from '../ColumnSelector/ColumnSelector';
+import * as React from 'react';
 import CountryItem from './CountryItem';
 import CountryTable from './CountryTable';
-import { useState } from 'react';
-import Modal from './Modal/Modal';
-import ColumnSelector from './ColumnSelector/ColumnSelector';
-import * as React from 'react';
 
 const countriesData = fetchCountriesData();
 

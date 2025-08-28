@@ -1,4 +1,4 @@
-import type { DataCountry } from '../types/co2.ts';
+import type { DataCountry } from '../../types/co2.ts';
 
 export default function CountryItem({ country }: { country: DataCountry }) {
   const lastElem = country.data.length - 1;
