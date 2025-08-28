@@ -31,9 +31,9 @@ export default function CountryList() {
     setIsOpenModal((prev) => !prev);
   };
 
-  const saveCheckBoxesField = (checkBoxFields: string[]) => {
-    const allColumns = [...checkBoxFields, ...columns] as (keyof DataYear)[];
-    setColumns(allColumns);
+  const saveCheckBoxesField = (checkBoxFields: (keyof DataYear)[]) => {
+    const allColumns = new Set<keyof DataYear>([...columns, ...checkBoxFields]);
+    setColumns([...allColumns]);
   };
   return (
     <div className="container py-3 bg-dark text-warning min-vh-100">
@@ -73,6 +73,7 @@ export default function CountryList() {
           <ColumnSelector
             close={handleModal}
             saveToState={saveCheckBoxesField}
+            selected={columns}
           />
         </Modal>
       )}

@@ -1,17 +1,23 @@
 import CheckboxField from '../Inputs/CheckBoxField';
 import { CHECKBOX_FIELDS } from '../../constants/co2Fields.ts';
 import * as React from 'react';
+import type { DataYear } from '../../types/co2';
 
 interface Props {
   close: (e: React.MouseEvent) => void;
-  saveToState: (selected: string[]) => void;
+  saveToState: (selected: (keyof DataYear)[]) => void;
+  selected: (keyof DataYear)[];
 }
 
-export default function ColumnSelector({ close, saveToState }: Props) {
+export default function ColumnSelector({
+  close,
+  saveToState,
+  selected,
+}: Props) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    const allColumns = form.getAll('columns') as string[];
+    const allColumns = form.getAll('columns') as (keyof DataYear)[];
     saveToState(allColumns);
   };
 
@@ -22,6 +28,7 @@ export default function ColumnSelector({ close, saveToState }: Props) {
           fieldName={field.fieldKey}
           label={field.label}
           key={field.fieldKey}
+          checked={selected.includes(field.fieldKey as keyof DataYear)}
         />
       ))}
       <button
