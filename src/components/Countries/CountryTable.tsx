@@ -1,15 +1,10 @@
-import type { DataCountry, DataYear } from '../../types/co2.ts';
+import type { DataCountry } from '../../types/co2.ts';
+import useCountryContext from '../../hook/useCountryContext';
 
-export default function CountryTable({
-  country,
-  nameColumns,
-  chooseYear,
-}: {
-  country: DataCountry;
-  nameColumns: (keyof DataYear)[];
-  chooseYear: number | null;
-}) {
-  const idx = country.data.findIndex((item) => item.year === chooseYear);
+export default function CountryTable({ country }: { country: DataCountry }) {
+  const { year, columns } = useCountryContext();
+
+  const idx = country.data.findIndex((item) => item.year === year);
   return (
     <table
       className="table table-light table-bordered table-sm w-100 text-center align-middle"
@@ -17,7 +12,7 @@ export default function CountryTable({
     >
       <thead>
         <tr>
-          {nameColumns.map((nameColumn) => (
+          {columns.map((nameColumn) => (
             <th key={nameColumn} style={{ fontSize: '0.65rem' }}>
               {nameColumn}
             </th>
@@ -26,7 +21,7 @@ export default function CountryTable({
       </thead>
       <tbody>
         <tr>
-          {nameColumns.map((nameColumn) => (
+          {columns.map((nameColumn) => (
             <th key={nameColumn} style={{ fontSize: '0.75rem' }}>
               {country.data[idx][nameColumn] ?? 'N/A'}
             </th>

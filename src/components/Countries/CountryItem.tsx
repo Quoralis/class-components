@@ -1,12 +1,14 @@
 import type { DataCountry } from '../../types/co2.ts';
+import useCountryContext from '../../hook/useCountryContext';
 
 interface Props {
   country: DataCountry;
-  chooseYear: number;
 }
 
-export default function CountryItem({ country, chooseYear }: Props) {
-  const idx = country.data.findIndex((item) => item.year === chooseYear);
+export default function CountryItem({ country }: Props) {
+  const { year } = useCountryContext();
+
+  const idx = country.data.findIndex((item) => item.year === year);
   const indLastYear = country.data.length - 1;
   const actualInd = () => (idx === -1 ? indLastYear : idx); // индекс не найдет, то -1
 

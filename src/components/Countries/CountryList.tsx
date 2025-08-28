@@ -7,6 +7,7 @@ import * as React from 'react';
 import CountryItem from './CountryItem';
 import CountryTable from './CountryTable';
 import CountryControls from './CountryControls';
+import CountryContext from '../../contex/CountryContext';
 
 const countriesData = fetchCountriesData();
 
@@ -37,51 +38,47 @@ export default function CountryList() {
     setColumns([...allColumns]);
   };
   return (
-    <div className="container py-3 bg-dark text-warning min-vh-100">
-      <h1 className="mb-4 text-center">Countries list</h1>
-      <CountryControls year={year?.toString()} onYearChange={setYear} />
-      <ul className="list-group">
-        {Object.entries(countries).map(
-          ([key, value]: [string, DataCountry]) => (
-            <li
-              key={key}
-              className="list-group-item bg-dark text-warning border-warning"
-              onClick={() => handleCard(key)}
-            >
-              <div className="d-flex justify-content-between align-items-start">
-                <h4>{key}</h4>
-                <button
-                  type="button"
-                  onClick={handleModal}
-                  className="btn btn-dark text-warning border-warning btn-sm"
-                >
-                  Add columns
-                </button>
-              </div>
+    <CountryContext.Provider value={{ year, setYear, columns }}>
+      <div className="container py-3 bg-dark text-warning min-vh-100">
+        <h1 className="mb-4 text-center">Countries list</h1>
+        <CountryControls />
+        <ul className="list-group">
+          {Object.entries(countries).map(
+            ([key, value]: [string, DataCountry]) => (
+              <li
+                key={key}
+                className="list-group-item bg-dark text-warning border-warning"
+                onClick={() => handleCard(key)}
+              >
+                <div className="d-flex justify-content-between align-items-start">
+                  <h4>{key}</h4>
+                  <button
+                    type="button"
+                    onClick={handleModal}
+                    className="btn btn-dark text-warning border-warning btn-sm"
+                  >
+                    Add columns
+                  </button>
+                </div>
 
-              <div>
-                <CountryItem country={value} chooseYear={Number(year)} />
-                {openId === key && (
-                  <CountryTable
-                    country={value}
-                    nameColumns={columns}
-                    chooseYear={year}
-                  />
-                )}
-              </div>
-            </li>
-          )
+                <div>
+                  <CountryItem country={value} />
+                  {openId === key && <CountryTable country={value} />}
+                </div>
+              </li>
+            )
+          )}
+        </ul>
+        {isOpenModal && (
+          <Modal>
+            <ColumnSelector
+              close={handleModal}
+              saveToState={saveCheckBoxesField}
+              selected={columns}
+            />
+          </Modal>
         )}
-      </ul>
-      {isOpenModal && (
-        <Modal>
-          <ColumnSelector
-            close={handleModal}
-            saveToState={saveCheckBoxesField}
-            selected={columns}
-          />
-        </Modal>
-      )}
-    </div>
+      </div>
+    </CountryContext.Provider>
   );
 }
