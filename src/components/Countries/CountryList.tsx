@@ -22,7 +22,7 @@ export default function CountryList() {
   const [openId, setOpenId] = useState<string | null>(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [columns, setColumns] = useState(defaultColumns);
-  const [year, setYear] = useState<number>(2023);
+  const [year, setYear] = useState<number>(0);
   const handleCard = (id: string) => {
     setOpenId((prevState) => (prevState === id ? null : id));
   };

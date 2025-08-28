@@ -7,6 +7,9 @@ interface Props {
 
 export default function CountryItem({ country, chooseYear }: Props) {
   const idx = country.data.findIndex((item) => item.year === chooseYear);
+  const indLastYear = country.data.length - 1;
+  const actualInd = () => (idx === -1 ? indLastYear : idx); // индекс не найдет, то -1
+
   return (
     <table
       className="table table-dark table-bordered table-striped table-sm w-100"
@@ -22,8 +25,10 @@ export default function CountryItem({ country, chooseYear }: Props) {
       <tbody>
         <tr className="text-center align-middle">
           <td>{country.iso_code || 'N/A'}</td>
-          <td>{country.data[idx]?.population?.toLocaleString() ?? 'N/A'}</td>
-          <td>{country.data[idx]?.year ?? 'N/A'}</td>
+          <td>
+            {country.data[actualInd()]?.population?.toLocaleString() ?? 'N/A'}
+          </td>
+          <td>{country.data[actualInd()]?.year ?? 'N/A'}</td>
         </tr>
       </tbody>
     </table>
