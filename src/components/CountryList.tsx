@@ -1,5 +1,5 @@
 import fetchCountriesData from '../api/fetchCountriesData';
-import type { DataCountry } from '../types/co2.ts';
+import type { DataCountry, DataYear } from '../types/co2.ts';
 import CountryItem from './CountryItem';
 import CountryTable from './CountryTable';
 import { useState } from 'react';
@@ -9,10 +9,18 @@ import * as React from 'react';
 
 const countriesData = fetchCountriesData();
 
+const defaultColumns: (keyof DataYear)[] = [
+  'year',
+  'population',
+  'cement_co2',
+  'cement_co2_per_capita',
+];
+
 export default function CountryList() {
   const countries = countriesData.read();
   const [openId, setOpenId] = useState<string | null>(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [columns, setColumns] = useState(defaultColumns);
 
   const handleCard = (id: string) => {
     setOpenId((prevState) => (prevState === id ? null : id));
@@ -21,6 +29,11 @@ export default function CountryList() {
   const handleModal = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsOpenModal((prev) => !prev);
+  };
+
+  const saveCheckBoxesField = (checkBoxFields: string[]) => {
+    const allColumns = [...checkBoxFields, ...columns] as (keyof DataYear)[];
+    setColumns(allColumns);
   };
   return (
     <div className="container py-3 bg-dark text-warning min-vh-100">
@@ -47,7 +60,9 @@ export default function CountryList() {
 
               <div>
                 <CountryItem country={value} />
-                {openId === key && <CountryTable country={value} />}
+                {openId === key && (
+                  <CountryTable country={value} nameColumns={columns} />
+                )}
               </div>
             </li>
           )
@@ -55,7 +70,10 @@ export default function CountryList() {
       </ul>
       {isOpenModal && (
         <Modal>
-          <ColumnSelector close={handleModal} />
+          <ColumnSelector
+            close={handleModal}
+            saveToState={saveCheckBoxesField}
+          />
         </Modal>
       )}
     </div>

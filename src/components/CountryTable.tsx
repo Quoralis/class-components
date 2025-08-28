@@ -1,6 +1,12 @@
-import type { DataCountry } from '../types/co2.ts';
+import type { DataCountry, DataYear } from '../types/co2.ts';
 
-export default function CountryTable({ country }: { country: DataCountry }) {
+export default function CountryTable({
+  country,
+  nameColumns,
+}: {
+  country: DataCountry;
+  nameColumns: (keyof DataYear)[];
+}) {
   const lastElem = country.data.length - 1;
 
   return (
@@ -10,20 +16,20 @@ export default function CountryTable({ country }: { country: DataCountry }) {
     >
       <thead>
         <tr>
-          <th style={{ fontSize: '0.65rem' }}>Year</th>
-          <th style={{ fontSize: '0.65rem' }}>Population</th>
-          <th style={{ fontSize: '0.65rem' }}>CO₂</th>
-          <th style={{ fontSize: '0.65rem' }}>CO₂ per capita</th>
+          {nameColumns.map((nameColumn) => (
+            <th key={nameColumn} style={{ fontSize: '0.65rem' }}>
+              {nameColumn}
+            </th>
+          ))}
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>{country.data[lastElem]?.year ?? 'N/A'}</td>
-          <td>
-            {country.data[lastElem]?.population?.toLocaleString() ?? 'N/A'}
-          </td>
-          <td>{country.data[lastElem]?.cement_co2 ?? 'N/A'}</td>
-          <td>{country.data[lastElem]?.cement_co2_per_capita ?? 'N/A'}</td>
+          {nameColumns.map((nameColumn) => (
+            <th key={nameColumn} style={{ fontSize: '0.75rem' }}>
+              {country.data[lastElem][nameColumn] ?? 'N/A'}
+            </th>
+          ))}
         </tr>
       </tbody>
     </table>

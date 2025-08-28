@@ -3,7 +3,7 @@ interface CheckboxFieldProps {
   label: string;
 }
 
-export default function CheckboxField({
+export default function CheckBoxField({
   fieldName,
   label,
 }: CheckboxFieldProps) {
