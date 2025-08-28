@@ -3,12 +3,13 @@ import type { DataCountry, DataYear } from '../../types/co2.ts';
 export default function CountryTable({
   country,
   nameColumns,
+  chooseYear,
 }: {
   country: DataCountry;
   nameColumns: (keyof DataYear)[];
+  chooseYear: number | null;
 }) {
-  const lastElem = country.data.length - 1;
-
+  const idx = country.data.findIndex((item) => item.year === chooseYear);
   return (
     <table
       className="table table-light table-bordered table-sm w-100 text-center align-middle"
@@ -27,7 +28,7 @@ export default function CountryTable({
         <tr>
           {nameColumns.map((nameColumn) => (
             <th key={nameColumn} style={{ fontSize: '0.75rem' }}>
-              {country.data[lastElem][nameColumn] ?? 'N/A'}
+              {country.data[idx][nameColumn] ?? 'N/A'}
             </th>
           ))}
         </tr>

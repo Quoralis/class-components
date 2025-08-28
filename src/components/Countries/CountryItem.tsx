@@ -1,8 +1,12 @@
 import type { DataCountry } from '../../types/co2.ts';
 
-export default function CountryItem({ country }: { country: DataCountry }) {
-  const lastElem = country.data.length - 1;
+interface Props {
+  country: DataCountry;
+  chooseYear: number;
+}
 
+export default function CountryItem({ country, chooseYear }: Props) {
+  const idx = country.data.findIndex((item) => item.year === chooseYear);
   return (
     <table
       className="table table-dark table-bordered table-striped table-sm w-100"
@@ -18,10 +22,8 @@ export default function CountryItem({ country }: { country: DataCountry }) {
       <tbody>
         <tr className="text-center align-middle">
           <td>{country.iso_code || 'N/A'}</td>
-          <td>
-            {country.data[lastElem]?.population?.toLocaleString() || 'N/A'}
-          </td>
-          <td>{country.data[lastElem]?.year || 'N/A'}</td>
+          <td>{country.data[idx]?.population?.toLocaleString() ?? 'N/A'}</td>
+          <td>{country.data[idx]?.year ?? 'N/A'}</td>
         </tr>
       </tbody>
     </table>

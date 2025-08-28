@@ -6,6 +6,7 @@ import ColumnSelector from '../ColumnSelector/ColumnSelector';
 import * as React from 'react';
 import CountryItem from './CountryItem';
 import CountryTable from './CountryTable';
+import CountryControls from './CountryControls';
 
 const countriesData = fetchCountriesData();
 
@@ -21,7 +22,7 @@ export default function CountryList() {
   const [openId, setOpenId] = useState<string | null>(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [columns, setColumns] = useState(defaultColumns);
-
+  const [year, setYear] = useState<number>(2023);
   const handleCard = (id: string) => {
     setOpenId((prevState) => (prevState === id ? null : id));
   };
@@ -38,7 +39,7 @@ export default function CountryList() {
   return (
     <div className="container py-3 bg-dark text-warning min-vh-100">
       <h1 className="mb-4 text-center">Countries list</h1>
-
+      <CountryControls year={year?.toString()} onYearChange={setYear} />
       <ul className="list-group">
         {Object.entries(countries).map(
           ([key, value]: [string, DataCountry]) => (
@@ -59,9 +60,13 @@ export default function CountryList() {
               </div>
 
               <div>
-                <CountryItem country={value} />
+                <CountryItem country={value} chooseYear={Number(year)} />
                 {openId === key && (
-                  <CountryTable country={value} nameColumns={columns} />
+                  <CountryTable
+                    country={value}
+                    nameColumns={columns}
+                    chooseYear={year}
+                  />
                 )}
               </div>
             </li>
