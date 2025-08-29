@@ -1,6 +1,6 @@
 import fetchCountriesData from '../../api/fetchCountriesData';
 import type { DataCountry, DataYear } from '../../types/co2.ts';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Modal from '../Modal/Modal';
 import ColumnSelector from '../ColumnSelector/ColumnSelector';
 import * as React from 'react';
@@ -25,28 +25,38 @@ export default function CountryList() {
   const [columns, setColumns] = useState(defaultColumns);
   const [year, setYear] = useState<number>(0);
   const [search, setSearch] = useState<string>('');
-  const handleCard = (id: string) => {
-    setOpenId((prevState) => (prevState === id ? null : id));
-  };
 
-  const handleModal = (e: React.MouseEvent) => {
+  const handleCard = useCallback((id: string) => {
+    setOpenId((prevState) => (prevState === id ? null : id));
+  }, []);
+
+  const handleModal = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     setIsOpenModal((prev) => !prev);
-  };
+  }, []);
 
-  const saveCheckBoxesField = (checkBoxFields: (keyof DataYear)[]) => {
-    const allColumns = new Set<keyof DataYear>([...columns, ...checkBoxFields]);
-    setColumns([...allColumns]);
-  };
+  const saveCheckBoxesField = useCallback(
+    (checkBoxFields: (keyof DataYear)[]) => {
+      setColumns((prev) => {
+        const allColumns = new Set<keyof DataYear>([
+          ...prev,
+          ...checkBoxFields,
+        ]);
+        return [...allColumns];
+      });
+    },
+    []
+  );
 
   const filteredCountries = Object.entries(countries).filter(([key]) => {
     if (search === '') return true;
     return key.toLowerCase().includes(search.toLowerCase());
   });
 
-  const onSearchChange = (searchString: string) => {
+  const onSearchChange = useCallback((searchString: string) => {
     setSearch(searchString);
-  };
+  }, []);
+
   return (
     <CountryContext.Provider value={{ year, setYear, columns }}>
       <div className="container py-3 bg-dark text-warning min-vh-100">

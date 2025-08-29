@@ -9,11 +9,7 @@ interface Props {
   selected: (keyof DataYear)[];
 }
 
-export default function ColumnSelector({
-  close,
-  saveToState,
-  selected,
-}: Props) {
+function ColumnSelector({ close, saveToState, selected }: Props) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -43,3 +39,4 @@ export default function ColumnSelector({
     </form>
   );
 }
+export default React.memo(ColumnSelector);
