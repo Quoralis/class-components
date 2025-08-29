@@ -1,11 +1,12 @@
 import SearchField from '../Inputs/SearchField';
 import ChooseYear from '../Inputs/ChooseYear';
+import React from 'react';
 
 interface SearchFieldProps {
   search: (value: string) => void;
 }
 
-export default function CountryControls({ search }: SearchFieldProps) {
+function CountryControls({ search }: SearchFieldProps) {
   return (
     <div className="container bg-dark text-warning border border-warning rounded mb-3">
       <div className="d-flex align-items-center justify-content-between p-3 gap-3 flex-wrap">
@@ -16,3 +17,4 @@ export default function CountryControls({ search }: SearchFieldProps) {
     </div>
   );
 }
+export default React.memo(CountryControls);
