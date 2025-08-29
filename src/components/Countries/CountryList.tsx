@@ -24,6 +24,8 @@ export default function CountryList() {
   const [columns, setColumns] = useState(defaultColumns);
   const [year, setYear] = useState<number>(0);
   const [search, setSearch] = useState<string>('');
+  const [sortBy, setSortBy] = useState<'name' | 'population'>('name');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   const handleCard = useCallback((id: string) => {
     setOpenId((prevState) => (prevState === id ? null : id));
@@ -53,6 +55,31 @@ export default function CountryList() {
     });
   }, [search, countries]);
 
+  const sortedCountries = useMemo(() => {
+    const list = [...filteredCountries];
+    return list.sort(([nameA, countryA], [nameB, countryB]) => {
+      if (sortBy === 'name') {
+        return sortOrder === 'asc'
+          ? nameA.localeCompare(nameB)
+          : nameB.localeCompare(nameA);
+      }
+      if (sortBy === 'population') {
+        const popA =
+          countryA.data.find((d) => d.year === year)?.population ??
+          countryA.data[countryA.data.length - 1]?.population ??
+          0;
+
+        const popB =
+          countryB.data.find((d) => d.year === year)?.population ??
+          countryB.data[countryB.data.length - 1]?.population ??
+          0;
+
+        return sortOrder === 'asc' ? popA - popB : popB - popA;
+      }
+      return 0;
+    });
+  }, [filteredCountries, sortBy, sortOrder, year]);
+
   const onSearchChange = useCallback((searchString: string) => {
     setSearch(searchString);
   }, []);
@@ -64,7 +91,13 @@ export default function CountryList() {
       <div className="container py-3 bg-dark text-warning min-vh-100">
         <h1 className="mb-4 text-center">Countries list</h1>
 
-        <CountryControls search={onSearchChange} />
+        <CountryControls
+          search={onSearchChange}
+          sortBy={sortBy}
+          sortOrder={sortOrder}
+          setSortBy={setSortBy}
+          setSortOrder={setSortOrder}
+        />
         <button
           type="button"
           onClick={handleModal}
@@ -73,7 +106,7 @@ export default function CountryList() {
           Add columns
         </button>
         <ul className="list-group">
-          {filteredCountries.map(([key, value]: [string, DataCountry]) => (
+          {sortedCountries.map(([key, value]: [string, DataCountry]) => (
             <li
               key={key}
               className="list-group-item bg-dark text-warning border-warning"
