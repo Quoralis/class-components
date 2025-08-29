@@ -3,7 +3,6 @@ import type { DataCountry, DataYear } from '../../types/co2.ts';
 import { useCallback, useMemo, useState } from 'react';
 import Modal from '../Modal/Modal';
 import ColumnSelector from '../ColumnSelector/ColumnSelector';
-import * as React from 'react';
 import CountryItem from './CountryItem';
 import CountryTable from './CountryTable';
 import CountryControls from './CountryControls';
@@ -30,8 +29,7 @@ export default function CountryList() {
     setOpenId((prevState) => (prevState === id ? null : id));
   }, []);
 
-  const handleModal = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleModal = useCallback(() => {
     setIsOpenModal((prev) => !prev);
   }, []);
 
@@ -65,7 +63,15 @@ export default function CountryList() {
     >
       <div className="container py-3 bg-dark text-warning min-vh-100">
         <h1 className="mb-4 text-center">Countries list</h1>
+
         <CountryControls search={onSearchChange} />
+        <button
+          type="button"
+          onClick={handleModal}
+          className="btn btn-dark text-warning border-warning btn-sm"
+        >
+          Add columns
+        </button>
         <ul className="list-group">
           {filteredCountries.map(([key, value]: [string, DataCountry]) => (
             <li
@@ -75,13 +81,6 @@ export default function CountryList() {
             >
               <div className="d-flex justify-content-between align-items-start">
                 <h4>{key}</h4>
-                <button
-                  type="button"
-                  onClick={handleModal}
-                  className="btn btn-dark text-warning border-warning btn-sm"
-                >
-                  Add columns
-                </button>
               </div>
 
               <div>

@@ -4,7 +4,7 @@ import * as React from 'react';
 import type { DataYear } from '../../types/co2';
 
 interface Props {
-  close: (e: React.MouseEvent) => void;
+  close: () => void;
   saveToState: (selected: (keyof DataYear)[]) => void;
   selected: (keyof DataYear)[];
 }
@@ -15,6 +15,7 @@ function ColumnSelector({ close, saveToState, selected }: Props) {
     const form = new FormData(e.currentTarget);
     const allColumns = form.getAll('columns') as (keyof DataYear)[];
     saveToState(allColumns);
+    close();
   };
 
   return (
