@@ -24,6 +24,7 @@ export default function CountryList() {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [columns, setColumns] = useState(defaultColumns);
   const [year, setYear] = useState<number>(0);
+  const [search, setSearch] = useState<string>('');
   const handleCard = (id: string) => {
     setOpenId((prevState) => (prevState === id ? null : id));
   };
@@ -37,37 +38,44 @@ export default function CountryList() {
     const allColumns = new Set<keyof DataYear>([...columns, ...checkBoxFields]);
     setColumns([...allColumns]);
   };
+
+  const filteredCountries = Object.entries(countries).filter(([key]) => {
+    if (search === '') return true;
+    return key.toLowerCase().includes(search.toLowerCase());
+  });
+
+  const onSearchChange = (searchString: string) => {
+    setSearch(searchString);
+  };
   return (
     <CountryContext.Provider value={{ year, setYear, columns }}>
       <div className="container py-3 bg-dark text-warning min-vh-100">
         <h1 className="mb-4 text-center">Countries list</h1>
-        <CountryControls />
+        <CountryControls search={onSearchChange} />
         <ul className="list-group">
-          {Object.entries(countries).map(
-            ([key, value]: [string, DataCountry]) => (
-              <li
-                key={key}
-                className="list-group-item bg-dark text-warning border-warning"
-                onClick={() => handleCard(key)}
-              >
-                <div className="d-flex justify-content-between align-items-start">
-                  <h4>{key}</h4>
-                  <button
-                    type="button"
-                    onClick={handleModal}
-                    className="btn btn-dark text-warning border-warning btn-sm"
-                  >
-                    Add columns
-                  </button>
-                </div>
+          {filteredCountries.map(([key, value]: [string, DataCountry]) => (
+            <li
+              key={key}
+              className="list-group-item bg-dark text-warning border-warning"
+              onClick={() => handleCard(key)}
+            >
+              <div className="d-flex justify-content-between align-items-start">
+                <h4>{key}</h4>
+                <button
+                  type="button"
+                  onClick={handleModal}
+                  className="btn btn-dark text-warning border-warning btn-sm"
+                >
+                  Add columns
+                </button>
+              </div>
 
-                <div>
-                  <CountryItem country={value} />
-                  {openId === key && <CountryTable country={value} />}
-                </div>
-              </li>
-            )
-          )}
+              <div>
+                <CountryItem country={value} />
+                {openId === key && <CountryTable country={value} />}
+              </div>
+            </li>
+          ))}
         </ul>
         {isOpenModal && (
           <Modal>
