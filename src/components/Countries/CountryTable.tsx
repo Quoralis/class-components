@@ -5,7 +5,7 @@ export default function CountryTable({ country }: { country: DataCountry }) {
   const { year, columns } = useCountryContext();
   const idx = country.data.findIndex((item) => item.year === year);
   const indLastYear = country.data.length - 1;
-  const actualInd = () => (idx === -1 ? indLastYear : idx);
+  const actualInd = idx === -1 ? indLastYear : idx;
 
   return (
     <table
@@ -25,7 +25,7 @@ export default function CountryTable({ country }: { country: DataCountry }) {
         <tr>
           {columns.map((nameColumn) => (
             <th key={nameColumn} style={{ fontSize: '0.75rem' }}>
-              {country.data[actualInd()][nameColumn] ?? 'N/A'}
+              {country.data[actualInd][nameColumn] ?? 'N/A'}
             </th>
           ))}
         </tr>

@@ -1,6 +1,6 @@
 import fetchCountriesData from '../../api/fetchCountriesData';
 import type { DataCountry, DataYear } from '../../types/co2.ts';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import Modal from '../Modal/Modal';
 import ColumnSelector from '../ColumnSelector/ColumnSelector';
 import * as React from 'react';
@@ -48,17 +48,21 @@ export default function CountryList() {
     []
   );
 
-  const filteredCountries = Object.entries(countries).filter(([key]) => {
-    if (search === '') return true;
-    return key.toLowerCase().includes(search.toLowerCase());
-  });
+  const filteredCountries = useMemo(() => {
+    return Object.entries(countries).filter(([key]) => {
+      if (search === '') return true;
+      return key.toLowerCase().includes(search.toLowerCase());
+    });
+  }, [search, countries]);
 
   const onSearchChange = useCallback((searchString: string) => {
     setSearch(searchString);
   }, []);
 
   return (
-    <CountryContext.Provider value={{ year, setYear, columns }}>
+    <CountryContext.Provider
+      value={useMemo(() => ({ year, setYear, columns }), [year, columns])}
+    >
       <div className="container py-3 bg-dark text-warning min-vh-100">
         <h1 className="mb-4 text-center">Countries list</h1>
         <CountryControls search={onSearchChange} />
