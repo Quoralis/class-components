@@ -9,12 +9,16 @@ interface Props {
 function CountryItem({ country }: Props) {
   const { year } = useCountryContext();
 
-  const idx = useMemo(() => {
-    return country.data.findIndex((item) => item.year === year);
-  }, [year, country.data]);
-  const indLastYear = country.data.length - 1;
-  const actualInd = idx === -1 ? indLastYear : idx; // индекс не найдет, то -1
-  const row = country.data[actualInd];
+  const yearsInd = useMemo(() => {
+    const yearMap = new Map();
+    country.data.forEach((item, index) => {
+      yearMap.set(item.year, index);
+    });
+    return yearMap;
+  }, [country.data]);
+
+  const row = country.data[yearsInd.get(year) ?? country.data.length - 1];
+
   return (
     <table
       className="table table-dark table-bordered table-striped table-sm w-100"
